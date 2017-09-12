@@ -54,7 +54,11 @@ void sketchify(std::string inputFile, std::string outputFile) {
 		/*myPixel->l=prev->l;
 		currOutPixel->l=prev->l;*/
             if (diff > 20) {////////////////////////////20
-                currOutPixel = myPixel;
+                //???????????currOutPixel = myPixel;
+	currOutPixel->h=myPixel->h;
+	currOutPixel->l=myPixel->l;
+	currOutPixel->s=myPixel->s;
+	currOutPixel->a=myPixel->a;
             }
 //cout<<"updated currout"<<currOutPixel->l<<endl;
 /////////////cout<<"myP->l="<<myPixel->l<<endl;
