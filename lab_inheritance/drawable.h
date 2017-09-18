@@ -18,7 +18,7 @@ using namespace cs225;
 class Drawable
 {
   public:
-    ~Drawable()
+    virtual ~Drawable()
     { /* Nothing */
     }
 
@@ -28,6 +28,7 @@ class Drawable
      * @param canvas to draw onto.
      */
     virtual void draw(PNG* canvas) const = 0;
+
 };
 
 #endif // DRAWABLE_H_
