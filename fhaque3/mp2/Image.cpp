@@ -131,7 +131,18 @@ using namespace cs225;
 	for(unsigned int i=0;i<width;i++){
 	 for(unsigned int j=0;j<height;j++){
 		HSLAPixel * original=this->getPixel(i,j);
-		original->h=fmod((original->h+degrees),360);
+		//int degreenum = degrees;
+		//degreenum=(degreenum%360);
+		double answer= degrees+ original->h;
+while(answer>360){
+		answer=answer-360;
+		}
+while (answer<0){
+		answer=answer+360;
+}
+		
+		
+		original->h=answer;
 		
 	
 
@@ -165,6 +176,8 @@ pixel->h=216;
 	unsigned int width=this->width();
 	unsigned int height=this->height();
 	resize(factor*(this->width()), factor*(this->height()));
+//if resizing bigger
+if(factor >1){
 	for(unsigned i=0;i<width;i++){
 		for(unsigned j=0;j<height;j++){
 			for(unsigned int x=i*factor;x<((i+1)*factor);x++){
@@ -178,6 +191,23 @@ pixel->h=216;
 			}	
 		}
 	}
+
+}
+else
+{
+	for(unsigned int i=0;i<this->width();i++){
+		for(unsigned int j=0;j<this->height();j++){
+			HSLAPixel * out= this->getPixel(i,j);
+			out->h=(newI->getPixel(floor(i*factor),floor(j*factor)))->h;
+			out->l=(newI->getPixel(floor(i*factor),floor(j*factor)))->l;
+			out->s=(newI->getPixel(floor(i*factor),floor(j*factor)))->s;
+			out->a=(newI->getPixel(floor(i*factor),floor(j*factor)))->a;
+			
+		}
+	}
+}
+
+
 //delete newI;	
   }
   void Image::scale(unsigned w, unsigned h){
