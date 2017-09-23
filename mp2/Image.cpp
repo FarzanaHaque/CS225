@@ -172,12 +172,14 @@ pixel->h=216;
   }
   }
   void Image::scale(double factor){
-	Image *newI=this;
+	Image *oldI=this;
+	unsigned int oldwidth=this->width();
+	unsigned int oldheight=this->height();
+	resize(factor*(this->width()), factor*(this->height()));
 	unsigned int width=this->width();
 	unsigned int height=this->height();
-	resize(factor*(this->width()), factor*(this->height()));
 //if resizing bigger
-if(factor >1){
+/*if(factor >1){
 	for(unsigned i=0;i<width;i++){
 		for(unsigned j=0;j<height;j++){
 			for(unsigned int x=i*factor;x<((i+1)*factor);x++){
@@ -204,6 +206,19 @@ else
 			out->a=(newI->getPixel(floor(i*factor),floor(j*factor)))->a;
 			
 		}
+	}
+}*/
+
+
+for (unsigned i=0;i<width;i++){
+	for(unsigned j=0;j<height;j++){
+		HSLAPixel * out=this->getPixel(i,j);
+		HSLAPixel *old=oldI->getPixel(i/factor,j/factor);
+		out->h=old->h;
+		out->l=old->l;
+		out->s=old->s;
+		out->a=old->a;
+		
 	}
 }
 
