@@ -210,10 +210,10 @@ else
 }*/
 
 
-for (unsigned i=0;i<width;i++){
-	for(unsigned j=0;j<height;j++){
-		HSLAPixel * out=this->getPixel(i,j);
+for (unsigned int i=0;i<width;i++){
+	for(unsigned int j=0;j<height;j++){
 		HSLAPixel *old=oldI->getPixel(i/factor,j/factor);
+		HSLAPixel * out=this->getPixel(i,j);
 		out->h=old->h;
 		out->l=old->l;
 		out->s=old->s;
@@ -226,4 +226,10 @@ for (unsigned i=0;i<width;i++){
 //delete newI;	
   }
   void Image::scale(unsigned w, unsigned h){
+double factor=0;
+if(w<h)
+factor=w;
+else
+factor=h;
+resize(factor*(this->width()), factor*(this->height()));
   }
