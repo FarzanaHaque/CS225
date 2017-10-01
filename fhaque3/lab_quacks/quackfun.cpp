@@ -29,10 +29,19 @@ T sum(stack<T>& s)
    // return T(); // stub return value (0 for primitive types). Change this!
                 // Note: T() is the default value for objects, and 0 for
                 // primitive types
-   stack <T> sumstack=s;
-	if(sumstack.empty())return 0;
-return(sumstack.top()+sum(sumstack.pop()));
 
+if(s.empty())return T();
+T oldtop=s.top();
+s.pop();
+return(oldtop +sum(s)); ///works but changes stack
+
+/*if(s.empty())return T();
+T oldtop=s.top();
+s.pop();
+T result=oldtop+s.top();
+s.push(oldtop());
+return(result +sum(s));
+*/
 }
 
 /**
@@ -51,9 +60,56 @@ template <typename T>
 void scramble(queue<T>& q)
 {
     stack<T> s;
-    // optional: queue<T> q2;
+    // optional: 
+   queue<T> q2;
 
     // Your code here
+/* reverse!!!
+int sized=q.size();
+for(int i=0;i<sized;i++){
+s.push(q.front());
+q.pop();
+}
+for(int i=0;i<sized;i++){
+q.push(s.top());
+s.pop();
+}
+*/
+int group=1;
+int counter=0;
+int sized=q.size();
+for(int i=0;i<sized;i++){
+std::cout << group <<std::endl;
+
+if(group%2==1){
+q2.push(q.front());
+q.pop();
+}
+else{
+
+while(!q.empty()){
+for(int j=0;j<group;j++){
+s.push(q.front());
+
+q.pop();
+}
+}
+
+while(!s.empty()){
+q2.push(s.top());
+s.pop();
+}
+
+}
+if(counter==0){
+group++;
+counter=group;
+}
+counter=counter-1;
+
+
+}
+q.swap(q2);
 }
 
 /**
