@@ -32,11 +32,12 @@ T sum(stack<T>& s)
 
 if(s.empty())return T();
 T oldtop=s.top();
-std::cout << "top: " <<oldtop<< std::endl;
+
 s.pop();
-oldtop = oldtop +sum(s); ///works but changes stack
+T result = oldtop +sum(s); ///works but changes stack
+//std::cout << "top: " <<oldtop<< std::endl;
 s.push(oldtop);
-return oldtop;
+return result;
 /*if(s.empty())return T();
 T oldtop=s.top();
 s.pop();
@@ -81,8 +82,8 @@ int group=1;
 int counter=0;
 int sized=q.size();
 for(int i=0;i<sized;i++){
-std::cout << "group:"<<group <<std::endl;
-std::cout << "counter"<<counter <<std::endl;
+//std::cout << "group:"<<group <<std::endl;
+//std::cout << "counter"<<counter <<std::endl;
 if(group%2==1&&!q.empty()){
 //std::cout << "odd life:"<<q.front() <<std::endl;
 //if(!q.empty()){
@@ -145,11 +146,43 @@ q.swap(q2);
 template <typename T>
 bool verifySame(stack<T>& s, queue<T>& q)
 {
-    bool retval = true; // optional
-    //T temp1; // rename me
-    //T temp2; // rename :)
 
+/* reverse!!!
+int sized=q.size();
+for(int i=0;i<sized;i++){
+s.push(q.front());
+q.pop();
+}
+for(int i=0;i<sized;i++){
+q.push(s.top());
+s.pop();
+}
+*/
+
+
+    bool retval = true; // optional
+    T stop=s.top(); // rename me
+
+if(s.empty()) return true;
+
+if(!s.empty()) s.pop();
+retval=retval && verifySame(s,q);
+s.push(stop);
+if(stop!=q.front()){
+retval= false;
+}
+if(!q.empty()){
+T qfront=q.front(); // rename :)
+q.pop();
+q.push(qfront);
+
+}
+else std::cout << "wtf"<<q.front() <<std::endl;
+//s.push(stop);
+//q.push(qfront);
     return retval;
 }
 
+
 }
+
