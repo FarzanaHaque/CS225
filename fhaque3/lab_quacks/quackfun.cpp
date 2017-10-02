@@ -162,7 +162,7 @@ s.pop();
 
     bool retval = true; // optional
     T stop=s.top(); // rename me
-
+/*
 if(s.empty()) return true;
 
 if(!s.empty()) s.pop();
@@ -180,7 +180,7 @@ q.push(qfront);
 else std::cout << "wtf"<<q.front() <<std::endl;
 //s.push(stop);
 //q.push(qfront);
-    return retval;
+*/    return retval;
 }
 
 
