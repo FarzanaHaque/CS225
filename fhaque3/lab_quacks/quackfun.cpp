@@ -32,9 +32,11 @@ T sum(stack<T>& s)
 
 if(s.empty())return T();
 T oldtop=s.top();
+std::cout << "top: " <<oldtop<< std::endl;
 s.pop();
-return(oldtop +sum(s)); ///works but changes stack
-
+oldtop = oldtop +sum(s); ///works but changes stack
+s.push(oldtop);
+return oldtop;
 /*if(s.empty())return T();
 T oldtop=s.top();
 s.pop();
@@ -79,19 +81,25 @@ int group=1;
 int counter=0;
 int sized=q.size();
 for(int i=0;i<sized;i++){
-std::cout << group <<std::endl;
-
-if(group%2==1){
+std::cout << "group:"<<group <<std::endl;
+std::cout << "counter"<<counter <<std::endl;
+if(group%2==1&&!q.empty()){
+//std::cout << "odd life:"<<q.front() <<std::endl;
+//if(!q.empty()){
 q2.push(q.front());
+//std::cout << "odd life:"<<q.front() <<std::endl;
 q.pop();
+//}
 }
-else{
+if(group%2==0){
 
-while(!q.empty()){
+//std::cout << "even life:"<<q.front() <<std::endl;
 for(int j=0;j<group;j++){
+if(!q.empty()){
 s.push(q.front());
 
 q.pop();
+
 }
 }
 
@@ -99,9 +107,17 @@ while(!s.empty()){
 q2.push(s.top());
 s.pop();
 }
+group++;
+counter=group;
 
 }
 if(counter==0){
+/*if(group%2==0){
+while(!s.empty()){
+q2.push(s.top());
+s.pop();
+}
+}*/
 group++;
 counter=group;
 }
