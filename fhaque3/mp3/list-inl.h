@@ -10,6 +10,8 @@
 template <class T>
 List<T>::~List() {
   /// @todo Graded in MP3.1
+
+clear();
 }
 
 /**
@@ -19,6 +21,15 @@ List<T>::~List() {
 template <class T>
 void List<T>::clear() {
   /// @todo Graded in MP3.1
+        ListNode* curr = head_;
+while(curr->next!=NULL){
+curr=curr->next;
+delete[] curr->prev;
+curr->prev=NULL;
+}
+delete[] tail_;
+tail_=NULL;
+length_++;
 }
 
 /**
@@ -30,6 +41,14 @@ void List<T>::clear() {
 template <class T>
 void List<T>::insertFront(T const& ndata) {
   /// @todo Graded in MP3.1
+
+ListNode * newnode=new ListNode(ndata);
+std::cout<<newnode<<std::endl;
+std::cout<<head_<<std::endl;
+newnode->next=head_;
+head_=newnode;
+head_->prev=NULL;
+length_++;
 }
 
 /**
@@ -41,6 +60,10 @@ void List<T>::insertFront(T const& ndata) {
 template <class T>
 void List<T>::insertBack(const T& ndata) {
   /// @todo Graded in MP3.1
+ListNode * newnode=new ListNode(*ndata);
+newnode->prev=tail_;
+tail_=newnode;
+tail_->next=NULL;
 }
 
 /**
