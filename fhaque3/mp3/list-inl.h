@@ -7,6 +7,7 @@
  * Destroys the current List. This function should ensure that
  * memory does not leak on destruction of a list.
  */
+#include <algorithm> 
 template <class T>
 List<T>::~List() {
   /// @todo Graded in MP3.1
@@ -119,6 +120,7 @@ void List<T>::reverse() {
 template <class T>
 void List<T>::reverse(ListNode*& startPoint, ListNode*& endPoint) {
     /// @todo Graded in MP3.1
+if(startPoint==NULL || endPoint==NULL){return;}
 if(startPoint==endPoint){
 ListNode *oldprev=startPoint->prev;
 ListNode *oldnext=startPoint->next;
@@ -127,18 +129,27 @@ startPoint->prev=oldnext;
 return;
 }
 ListNode *curr=startPoint;
-while(curr!=endPoint){
+while(curr!=NULL){
 ListNode *oldprev=curr->prev;
 ListNode *oldnext=curr->next;
 curr->next=oldprev;
 curr->prev=oldnext;
 curr=oldnext;
 }
-//end pt
-ListNode *eoldnext=endPoint->next;
-ListNode *eoldprev=endPoint->prev;
-endPoint->next=eoldprev;
-endPoint->prev=eoldnext;
+
+
+
+ListNode *oldend=endPoint;
+ListNode *oldstart=startPoint;
+startPoint=oldend;
+endPoint=oldstart;
+//ListNode*enext=endPoint->next;
+//ListNode*sprev=startPoint->prev;
+endPoint->next=oldend->next;
+startPoint->prev=oldstart->prev;
+oldend->next->prev=endPoint;
+oldstart->prev->next=startPoint;
+
 return;
 }
 
@@ -151,6 +162,47 @@ return;
 template <class T>
 void List<T>::reverseNth(int n) {
   /// @todo Graded in MP3.1
+/*int l=length_;
+ListNode *currold=head_;
+ListNode *curr=head_;
+while(currold!=tail_){
+int elements=min(n,l);
+
+for(int i=0;i<elements;i++){
+curr=curr->next;
+}
+reverse(currold,curr);
+currold=curr;
+l=l-n;
+}*/
+
+
+int l=length_;
+int elements=min(n,l);
+ListNode *start=head_ ;
+ListNode *end=head_ ; 
+//while(l>n){
+
+
+for(int i=0;i<elements;i++){
+end=end->next;
+}
+
+reverse(start,end);
+/*l=l-n;
+end=end->next;
+start=end;*/
+//}
+
+/*if(l<=n){
+for(int i=0;i<l;i++){
+end=end->next;
+}
+
+reverse(start,end);
+
+}*/
+return;
 }
 
 /**
@@ -165,6 +217,7 @@ void List<T>::reverseNth(int n) {
 template <class T>
 void List<T>::waterfall() {
   /// @todo Graded in MP3.1
+
 }
 
 /**
