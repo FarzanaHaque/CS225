@@ -9,6 +9,9 @@
  *  tree is just the length of the longest path from the root to a leaf, and
  *  that the height of an empty tree is -1.
  */
+
+#include <vector>
+using namespace std;
 template <typename T>
 int BinaryTree<T>::height() const
 {
@@ -174,9 +177,43 @@ template <typename T>
 void BinaryTree<T>::printPaths(vector<vector<T> > &paths) const
 {
     // your code here
+ vector<T> curr;
+printPaths(root,paths,curr);
+
 }
 
+template <typename T>
+void BinaryTree<T>::printPaths(Node* subroot,vector<vector<T> > &paths,vector<T>curr) const{
+Node* cnode=subroot;
+//curr.clear(); //dont do this if gonna do recursive
 
+if(cnode==NULL/*&&cnode->left==NULL&&cnode->right==NULL*/){
+
+paths.push_back(curr);
+curr.pop_back();
+return; //is this right???
+}
+//else
+curr.push_back(cnode->elem);
+printPaths(cnode->left,paths,curr);
+printPaths(cnode->right,paths,curr);
+
+
+
+
+
+
+/*while(cnode->left!=NULL){
+curr.pushback(cnode->data);
+cnode=cnode->left;
+}
+curr.pushback(cnode->left->data);
+paths.pushback(curr);
+curr.popback();
+cnode=cnode->right;
+//vector <T> newest;*/
+
+} 
 /**
  * Each node in a tree has a distance from the root node - the depth of that
  * node, or the number of edges along the path from that node to the root. This
@@ -189,5 +226,45 @@ template <typename T>
 int BinaryTree<T>::sumDistances() const
 {
     // your code here
-    return -1;
+    return sumDistances(root);
+}
+
+
+template <typename T>
+int BinaryTree<T>::sumDistances(Node * subRoot) const
+{
+    // your code here
+    if(subRoot==NULL)
+	return 0;
+
+int sum=0;
+int rightsum=0;
+int leftsum=0;
+
+if(subRoot->left!=NULL)
+{
+sum=sum+1;
+leftsum=sumDistances(subRoot->left);
+if(leftsum!=0)leftsum++;
+
+}
+
+if(subRoot->right!=NULL)
+{
+sum=sum+1;
+//int rightsum=1+sumDistances(subRoot->right);
+rightsum=sumDistances(subRoot->right);
+if(rightsum!=0)rightsum++;
+
+
+
+//or could not add +1, don't if the rightsum?
+}
+
+
+sum=rightsum+leftsum+sum;
+return sum;
+
+
+
 }
