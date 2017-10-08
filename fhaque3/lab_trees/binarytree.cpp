@@ -77,8 +77,23 @@ template <typename T>
 void BinaryTree<T>::mirror()
 {
     //your code here
+    mirror(root);
 }
 
+template <typename T>
+void BinaryTree<T>::mirror(Node* subRoot)
+{
+if(subRoot==NULL)
+	return;
+
+Node * right=subRoot->right;
+Node * left=subRoot->left;
+subRoot->left=right;
+subRoot->right=left;
+mirror(subRoot->left);
+mirror(subRoot->right);
+return;
+}
 /**
  * @return True if an in-order traversal of the tree would produce a
  *  nondecreasing list output values, and false otherwise. This is also the
@@ -88,10 +103,65 @@ template <typename T>
 bool BinaryTree<T>::isOrdered() const
 {
     // your code here
-    return false;
+   return isOrdered(root);
 }
 
+template <typename T>
+bool BinaryTree<T>::isOrdered(Node* subRoot)const
+{
+	if(subRoot==NULL) return true;
+	bool Nbig=isOrderedNbig(subRoot,subRoot->left);
+	bool Nsmall=isOrderedNsmall(subRoot,subRoot->right);
+	if(!Nbig|| !Nsmall){
+		return false;
+	}
+	bool left=isOrdered(subRoot->left);
+	bool right=isOrdered(subRoot->right);
+	bool order=left && right;
+	return order;
+}
 
+template <typename T>
+bool BinaryTree<T>::isOrderedNbig(Node* subRoot,Node* left)const
+{	if(subRoot==NULL || left==NULL)return true;
+	if(left->elem>=subRoot->elem){
+		return false;
+	}
+	bool lchild= isOrderedNbig(subRoot,left->left);
+	bool rchild= isOrderedNbig(subRoot,left->right);
+	return lchild && rchild;
+	}
+
+template <typename T>
+bool BinaryTree<T>::isOrderedNsmall(Node* subRoot, Node* right)const
+{	if(subRoot==NULL || right==NULL) return true;
+	if(right->elem<=subRoot->elem){
+		return false;
+	}
+	bool lchild= isOrderedNsmall(subRoot,right->left);
+	bool rchild= isOrderedNsmall(subRoot,right->right);
+	return lchild && rchild;
+}///////////////////////interesting transversal
+
+
+/*template <typename T>
+void BinaryTree<T>::isOrdered(Node* subRoot)
+{
+ bool order=TRUE;
+ if(subRoot==NULL)
+	return TRUE; //true??
+ if(subRoot->left->data >= subRoot->data || subRoot->right->data <= subRoot->data){
+	return false;
+ }
+
+//gotta compare all of left's children to make sure node is bigger and similarly smaller for right's kids
+//need to do a breadth first tranversal??? 
+ bool left=isOrdered(subRoot->left);
+ bool right=isOrdered(subRoot->right);
+order=left && right;
+
+ return;
+}*/
 /**
  * creates vectors of all the possible paths from the root of the tree to any leaf
  * node and adds it to another vector.

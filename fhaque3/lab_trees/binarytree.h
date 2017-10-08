@@ -145,10 +145,17 @@ class BinaryTree
      */
     void inOrder(vector <T>& treeVector );
 
+
   private:
     Node* root;
 
-    /**
+    
+
+
+bool isOrdered(Node* subRoot)const;
+bool isOrderedNbig(Node* subRoot,Node* left)const;
+bool isOrderedNsmall(Node* subRoot, Node* right)const;
+	/**
      * Put your own private helper functions here.
      * Look at the private helpers for height and printLeftToRight
      *  as examples.
@@ -167,7 +174,7 @@ class BinaryTree
      */
     void printLeftToRight(const Node* subRoot) const;
 
-
+    void mirror(Node* subRoot);
     /**
      * Private helper function for the public insert function.
      * @param node The current node in the recursion
@@ -201,3 +208,4 @@ class BinaryTree
 #include "binarytree_given.cpp"
 #include "binarytree.cpp"
 #endif
+
