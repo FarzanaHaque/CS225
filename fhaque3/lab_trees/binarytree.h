@@ -155,6 +155,8 @@ class BinaryTree
 bool isOrdered(Node* subRoot)const;
 bool isOrderedNbig(Node* subRoot,Node* left)const;
 bool isOrderedNsmall(Node* subRoot, Node* right)const;
+int sumDistances(Node * subRoot) const;
+void printPaths(Node* subroot,vector<vector<T> > &paths,vector<T>curr) const;
 	/**
      * Put your own private helper functions here.
      * Look at the private helpers for height and printLeftToRight
