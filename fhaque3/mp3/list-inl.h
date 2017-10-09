@@ -180,7 +180,7 @@ if(length_<=n){reverse();}
 int l=length_;
 ListNode *currold=head_;
 ListNode *curr=head_;
-int elements=0;
+//int elements=0;
 //while(curr!=NULL){
 /*if(n<l)elements=n;
 else elements=l;*/
@@ -188,17 +188,25 @@ else elements=l;*/
 for(int i=0;i<n;i++){
 curr=curr->next;
 }
+reverse(head_,curr);
+currold=curr;
+l=l-n;
+while(l>=n){
+for(int i=0;i<n;i++){
+curr=curr->next;
+}
 reverse(currold,curr);
 currold=curr;
 l=l-n;
-//}
+}
 
 
-/*int l=length_;
-int elements=min(n,l);
+
+
+/*int elements=min(n,l);
 ListNode *start=head_ ;
 ListNode *end=head_ ; 
-//while(l>n){
+while(l>n){
 
 
 for(int i=0;i<n;i++){
@@ -234,6 +242,20 @@ return;
 template <class T>
 void List<T>::waterfall() {
   /// @todo Graded in MP3.1
+ListNode *curr=head_;
+while(curr!=tail_||curr!=NULL){
+	int i=0;
+	if(i%2==1){
+		curr=curr->next;			
+	}
+	if(i%2==0){
+		curr->prev=curr->next;
+		curr->next=curr->prev;
+		insertBack(curr->data);
+		curr=curr->next;
+	}
+	i++;
+}
 
 }
 
