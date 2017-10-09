@@ -186,12 +186,12 @@ template <typename T>
 void BinaryTree<T>::printPaths(Node* subroot,vector<vector<T> > &paths,vector<T>curr) const{
 Node* cnode=subroot;
 //curr.clear(); //dont do this if gonna do recursive
-
-if(cnode==NULL/*&&cnode->left==NULL&&cnode->right==NULL*/){
-
+if(cnode==NULL)return;
+if(cnode->left==NULL&&cnode->right==NULL){//previous if cnode==null
+curr.push_back(cnode->elem);//is this right???
 paths.push_back(curr);
 curr.pop_back();
-return; //is this right???
+ //is this right???
 }
 //else
 curr.push_back(cnode->elem);
