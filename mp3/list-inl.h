@@ -63,6 +63,7 @@ else{
 newnode->next=head_;
 head_=newnode;
 head_->prev=NULL;
+head_->next->prev=head_;
 length_++;}
 }
 
@@ -120,6 +121,7 @@ void List<T>::reverse() {
 template <class T>
 void List<T>::reverse(ListNode*& startPoint, ListNode*& endPoint) {
     /// @todo Graded in MP3.1
+ListNode *endnext=endPoint->next;
 if(startPoint==NULL || endPoint==NULL){return;}
 if(startPoint==endPoint){
 ListNode *oldprev=startPoint->prev;
@@ -129,7 +131,7 @@ startPoint->prev=oldnext;
 return;
 }
 ListNode *curr=startPoint;
-while(curr!=NULL){
+while(curr!=endnext &&curr!=NULL){
 ListNode *oldprev=curr->prev;
 ListNode *oldnext=curr->next;
 curr->next=oldprev;
@@ -143,13 +145,25 @@ ListNode *oldend=endPoint;
 ListNode *oldstart=startPoint;
 startPoint=oldend;
 endPoint=oldstart;
+ListNode*beg=endPoint->next;
+ListNode*end=startPoint->prev;
+endPoint->next=end;
+startPoint->prev=beg;
+
+if(beg!=NULL)
+beg->next=startPoint;
+if(end!=NULL)
+end->prev=endPoint;
+
+
 //ListNode*enext=endPoint->next;
 //ListNode*sprev=startPoint->prev;
-endPoint->next=oldend->next;
-startPoint->prev=oldstart->prev;
-oldend->next->prev=endPoint;
-oldstart->prev->next=startPoint;
+//endPoint->next=oldend->next;
+//startPoint->prev=oldstart->prev;
+/*if(oldend->next!=NULL)oldend->next->prev=endPoint;
 
+if(oldstart->prev!=NULL)oldstart->prev->next=startPoint;
+*/
 return;
 }
 
@@ -162,33 +176,36 @@ return;
 template <class T>
 void List<T>::reverseNth(int n) {
   /// @todo Graded in MP3.1
-/*int l=length_;
+if(length_<=n){reverse();}
+int l=length_;
 ListNode *currold=head_;
 ListNode *curr=head_;
-while(currold!=tail_){
-int elements=min(n,l);
+int elements=0;
+//while(curr!=NULL){
+/*if(n<l)elements=n;
+else elements=l;*/
 
-for(int i=0;i<elements;i++){
+for(int i=0;i<n;i++){
 curr=curr->next;
 }
 reverse(currold,curr);
 currold=curr;
 l=l-n;
-}*/
+//}
 
 
-int l=length_;
+/*int l=length_;
 int elements=min(n,l);
 ListNode *start=head_ ;
 ListNode *end=head_ ; 
 //while(l>n){
 
 
-for(int i=0;i<elements;i++){
+for(int i=0;i<n;i++){
 end=end->next;
 }
 
-reverse(start,end);
+reverse(start,end);*/
 /*l=l-n;
 end=end->next;
 start=end;*/
