@@ -235,30 +235,11 @@ int BinaryTree<T>::sumDistances() const
  * @param subRoot
  * @return The height of the subtree
  */
-template <typename T>
-int BinaryTree<T>::fakeheightL(const Node* subRoot) const
-{
-    // Base case
-    if (subRoot == NULL)
-        return -1;
 
-    // Recursive definition
-    return 1 + (subRoot->left);
-}
-template <typename T>
-int BinaryTree<T>::fakeheightR(const Node* subRoot) const
-{
-    // Base case
-    if (subRoot == NULL)
-        return -1;
-
-    // Recursive definition
-    return 1 + (subRoot->right);
-}
 
 
 template <typename T>
-int BinaryTree<T>::sumDistances(Node * subRoot, Node *left, Node *right) const
+int BinaryTree<T>::sumDistances(Node * subRoot) const
 {
     // your code here
     if(subRoot==NULL)
@@ -304,7 +285,7 @@ if(rightsum!=0)rightsum++;
 
 sum=rightsum+leftsum+sum;
 return sum;
-*/
+
 
 
 }
