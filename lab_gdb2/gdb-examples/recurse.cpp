@@ -10,7 +10,7 @@
 
 void recurse(int index, int length) {
 //
-    if(index == 0)
+    if(index == length)
         return;
 
 	for(int q=1; q<index; q++)

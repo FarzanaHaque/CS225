@@ -19,9 +19,9 @@ int i=0;
 int a = std::atoi(argv[1]);
 int b = std::atoi(argv[2]);
 
-a=b;
-b=a;
+//a=b;
+//b=a;
 
-std::cout<<"A: "<<a<<" B: "<<a<<std::endl;
+std::cout<<"A: "<<a<<" B: "<<b<<std::endl;
 
 }
