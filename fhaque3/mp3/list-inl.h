@@ -7,7 +7,9 @@
  * Destroys the current List. This function should ensure that
  * memory does not leak on destruction of a list.
  */
-#include <algorithm> 
+#include <iostream>
+#include <algorithm>
+using namespace std; 
 template <class T>
 List<T>::~List() {
   /// @todo Graded in MP3.1
@@ -176,9 +178,10 @@ return;
 template <class T>
 void List<T>::reverseNth(int n) {
   /// @todo Graded in MP3.1
-if(length_<=n){reverse();}
+if(length_<=n){reverse();
+return;}
 int l=length_;
-ListNode *currold=head_;
+ListNode *&currold=head_;
 ListNode *curr=head_;
 //int elements=0;
 //while(curr!=NULL){
@@ -187,18 +190,23 @@ else elements=l;*/
 
 for(int i=0;i<n;i++){
 curr=curr->next;
+cout<<i<<endl;
 }
-reverse(head_,curr);
+//reverse(head_,curr);
+std::cout<<curr<<endl;
+std::cout<<currold<<endl;
+cout<<head_<<endl;
+reverse(currold,curr);
 currold=curr;
 l=l-n;
-while(l>=n){
+/*while(l>=n){
 for(int i=0;i<n;i++){
 curr=curr->next;
 }
 reverse(currold,curr);
 currold=curr;
 l=l-n;
-}
+}*/
 
 
 
@@ -243,16 +251,25 @@ template <class T>
 void List<T>::waterfall() {
   /// @todo Graded in MP3.1
 ListNode *curr=head_;
-while(curr!=tail_||curr!=NULL){
-	int i=0;
+	int i=1;
+while(curr!=tail_&&curr!=NULL){
+
+//for(int i=0;i<length_/2;i++){
+
 	if(i%2==1){
 		curr=curr->next;			
 	}
 	if(i%2==0){
-		curr->prev=curr->next;
-		curr->next=curr->prev;
+		ListNode* cnext=curr->next;
+		ListNode *cprev=curr->prev;
+		if(cprev!=NULL)cprev->next=cnext;
+		if(cnext!=NULL)cnext->prev=cprev;
+		//curr->prev=curr->next;
+		//curr->next=curr->prev;
 		insertBack(curr->data);
-		curr=curr->next;
+		delete[]curr;
+		curr=NULL;
+		curr=cnext;
 	}
 	i++;
 }
