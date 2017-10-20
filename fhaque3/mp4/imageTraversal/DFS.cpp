@@ -9,6 +9,9 @@
 #include "ImageTraversal.h"
 #include "DFS.h"
 
+
+//we want to pop the most recently added, aka stack, std::stack
+
 /**
  * Initializes a depth-first ImageTraversal on a given `png` image,
  * starting at `start`, and with a given `tolerance`.
