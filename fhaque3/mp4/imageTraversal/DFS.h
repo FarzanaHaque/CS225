@@ -28,7 +28,7 @@ public:
   Point peek() const;
   bool empty() const;
 stack<Point> DFSstack;
-
+list<Point>Traveled;
 private:
 
 };

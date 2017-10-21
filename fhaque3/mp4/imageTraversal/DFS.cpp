@@ -18,10 +18,14 @@
  */
 DFS::DFS(const PNG & png, const Point & start, double tolerance) {  
   /** @todo [Part 1] */
+*begin =iterator();
+HSLAPixel * startpix=png.getPixel(start->x,start->y);
+
 /*Point * right;//x+1
 Point * below;//y+1
 Point * left;//x-1
 Point * above;//y-1*/
+
 int x=start->x;
 int y=start->y;
 if(x<=width){
@@ -55,6 +59,8 @@ DFSstack.push(above);
  */
 ImageTraversal::Iterator DFS::begin() {
   /** @todo [Part 1] */
+//ImageTraversal::Iterator begin();
+Iterator begin()
   return ImageTraversal::Iterator();
 }
 
