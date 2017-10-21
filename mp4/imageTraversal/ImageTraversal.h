@@ -29,6 +29,7 @@ public:
     Iterator & operator++();
     Point operator*();
     bool operator!=(const Iterator &other);
+	static double calculateDelta(const HSLAPixel & p1, const HSLAPixel & p2);
   
   private:
 
