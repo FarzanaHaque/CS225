@@ -18,6 +18,36 @@
  */
 DFS::DFS(const PNG & png, const Point & start, double tolerance) {  
   /** @todo [Part 1] */
+/*Point * right;//x+1
+Point * below;//y+1
+Point * left;//x-1
+Point * above;//y-1*/
+int x=start->x;
+int y=start->y;
+if(x<=width){
+Point * right=new Point(x+1,y);
+DFSstack.push(right);
+//check if already visited & tolerance
+
+}
+if(y<=height){
+Point * below=new Point(x,y+1);
+DFSstack.push(below);
+//check if already visited & tolerance
+
+}
+if(0<=x-1){
+Point * left=new Point(x-1,y);
+DFSstack.push(left);
+//check if already visited & tolerance
+
+}
+if(0<=y-1){
+Point * above=new Point(x,y-1);
+DFSstack.push(above);
+//check if already visited & tolerance
+
+}
 }
 
 /**
