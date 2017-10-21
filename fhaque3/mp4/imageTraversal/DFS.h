@@ -27,6 +27,7 @@ public:
   Point pop();
   Point peek() const;
   bool empty() const;
+stack<Point> DFSstack;
 
 private:
 
