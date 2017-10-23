@@ -31,8 +31,8 @@ void AVLTree<K, V>::rotateLeft(Node*& t)
     functionCalls.push_back("rotateLeft"); // Stores the rotation name (don't remove this)
     //functionCalls.push_back("rotateRight"); // Stores the rotation name (don't remove this)
     // your code here
-if(t==NULL) return;
-if(t->right==NULL) return;
+//if(t==NULL) return;
+//if(t->right==NULL) return;
 //if(t->right->right==NULL) return;
 /*Node * z=t;
 Node *y= t->right;
@@ -47,9 +47,10 @@ y->height=1+max(heightOrNeg1(y->left),heightOrNeg1(y->right));
 Node *y=t->right;
 t->right=y->left;
 y->left=t;
-t=y;
+
 y->height=1+max(heightOrNeg1(y->left),heightOrNeg1(y->right));
 t->height=1+max(heightOrNeg1(t->left),heightOrNeg1(t->right));
+t=y;
 }
 
 template <class K, class V>
@@ -68,7 +69,7 @@ void AVLTree<K, V>::rotateRight(Node*& t)
    functionCalls.push_back("rotateRight"); // Stores the rotation name (don't remove this)
     //functionCalls.push_back("rotateLeft");
     // your code here
-if(t==NULL) return;
+//if(t==NULL) return;
 //if(t->left==NULL)return;
 //if(t->left->left==NULL) return;
 Node *z=t;
@@ -76,10 +77,11 @@ Node *y=t->left;
 Node *x=y->left;
 z->left=y->right;
 y->right=z;
-t=y;
+
 //implement height changes???
 z->height=1+max(heightOrNeg1(z->left),heightOrNeg1(z->right));
 y->height=1+max(heightOrNeg1(y->left),heightOrNeg1(y->right));
+t=y;
 
 /*Node *y=t->left;
 t->left=y->right;
@@ -144,22 +146,23 @@ void AVLTree<K, V>::insert(Node*& subtree, const K& key, const V& value)
 	if(subtree==NULL){
 Node * insertNode=new Node(key, value);
 	subtree=insertNode;
-	return;
+	//return;
 	}
 
-	if(key==subtree->key){
-	return;
+	else if(key==subtree->key){
+	return; //duplicated
 	}
 	if(key<subtree->key){
+
 	insert(subtree->left, key, value);
-subtree->height=1+max(heightOrNeg1(subtree->left),heightOrNeg1(subtree->right)); 
+//subtree->height=1+max(heightOrNeg1(subtree->left),heightOrNeg1(subtree->right)); 
 //now time to rebalance and rotate???
 rebalance(subtree);
 
 	}
 	if(key>subtree->key){
 	insert(subtree->right, key, value);
-subtree->height=1+max(heightOrNeg1(subtree->left),heightOrNeg1(subtree->right)); 
+//subtree->height=1+max(heightOrNeg1(subtree->left),heightOrNeg1(subtree->right)); 
 //now time to rebalance and rotate???
 rebalance(subtree);
 
@@ -169,6 +172,7 @@ rebalance(subtree);
 //now time to rebalance and rotate???
 rebalance(subtree);
 */
+subtree->height=1+max(heightOrNeg1(subtree->left),heightOrNeg1(subtree->right));
 return;
 }
 
@@ -222,7 +226,7 @@ subtree=subtree->right;
 		}
         }
         // your code here
-//subtree->height=1+max(heightOrNeg1(subtree->right),heightOrNeg1(subtree->left));
+subtree->height=1+max(heightOrNeg1(subtree->right),heightOrNeg1(subtree->left));
 rebalance(subtree);
     }
 
