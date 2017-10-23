@@ -202,6 +202,7 @@ void AVLTree<K, V>::remove(Node*& subtree, const K& key)
             // your code here
 subtree=NULL;
 delete subtree;
+//clear(subtree);
 //update heights????????
 return;
         } else if (subtree->left != NULL && subtree->right != NULL) {
@@ -215,14 +216,21 @@ IOP=IOP->right;
 		//copy key & data, delete node
 		swap(IOP,subtree);
 		remove(subtree->left,key);
+		////////////clear(IOP);
         } else {
             /* one-child remove */
             // your code here
 if(subtree->left!=NULL){
+//Node *oldsubtree=subtree;
 subtree=subtree->left;
+/*oldsubtree=NULL;
+delete(oldsubtree);*/
 }
 if(subtree->right!=NULL){//subtree=subtree->right;
+//Node *oldsubtree=subtree;
 subtree=subtree->right;
+/*oldsubtree=NULL;
+delete(oldsubtree);*/
 		}
         }
         // your code here
