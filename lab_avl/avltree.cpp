@@ -69,9 +69,9 @@ void AVLTree<K, V>::rotateRight(Node*& t)
     //functionCalls.push_back("rotateLeft");
     // your code here
 if(t==NULL) return;
-if(t->left==NULL)return;
+//if(t->left==NULL)return;
 //if(t->left->left==NULL) return;
-/*Node *z=t;
+Node *z=t;
 Node *y=t->left;
 Node *x=y->left;
 z->left=y->right;
@@ -80,13 +80,13 @@ t=y;
 //implement height changes???
 z->height=1+max(heightOrNeg1(z->left),heightOrNeg1(z->right));
 y->height=1+max(heightOrNeg1(y->left),heightOrNeg1(y->right));
-*/
-Node *y=t->left;
+
+/*Node *y=t->left;
 t->left=y->right;
 y->right=t;
 t=y;
 y->height=1+max(heightOrNeg1(y->left),heightOrNeg1(y->right));
-t->height=1+max(heightOrNeg1(t->left),heightOrNeg1(t->right));
+t->height=1+max(heightOrNeg1(t->left),heightOrNeg1(t->right));*/
 
 }
 
@@ -187,33 +187,44 @@ void AVLTree<K, V>::remove(Node*& subtree, const K& key)
     if (key < subtree->key) {
         // your code here
 	remove(subtree->left,key);
+	rebalance(subtree);
     } else if (key > subtree->key) {
         // your code here
 	remove(subtree->right,key);
-    } else {
+	rebalance(subtree);
+    } else {//key=subtree
         if (subtree->left == NULL && subtree->right == NULL) {
             /* no-child remove */
             // your code here
-clear(subtree);
+subtree=NULL;
+delete subtree;
 //update heights????????
+return;
         } else if (subtree->left != NULL && subtree->right != NULL) {
             /* two-child remove */
             // your code here
 //smallest in the right hand side
-		Node *smallest= subtree->right;
-		while(smallest->left!=NULL){smallest=smallest->left;}
+		Node *IOP= subtree->left;
+		while(IOP->right!=NULL){//IOP->height=IOP->height -1;
+IOP=IOP->right;
+}
 		//copy key & data, delete node
-		subtree->key=smallest->key;
-		subtree->value=smallest->value;
-		clear(smallest);
+		swap(IOP,subtree);
+		remove(subtree->left,key);
         } else {
             /* one-child remove */
             // your code here
-if(subtree->left!=NULL){subtree=subtree->left;}
-if(subtree->right!=NULL){subtree=subtree->right;}
+if(subtree->left!=NULL){
+subtree=subtree->left;
+}
+if(subtree->right!=NULL){//subtree=subtree->right;
+subtree=subtree->right;
+		}
         }
         // your code here
 subtree->height=1+max(heightOrNeg1(subtree->right),heightOrNeg1(subtree->left));
 rebalance(subtree);
     }
+
+
 }
