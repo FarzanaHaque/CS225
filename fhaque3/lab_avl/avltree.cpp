@@ -222,7 +222,7 @@ subtree=subtree->right;
 		}
         }
         // your code here
-subtree->height=1+max(heightOrNeg1(subtree->right),heightOrNeg1(subtree->left));
+//subtree->height=1+max(heightOrNeg1(subtree->right),heightOrNeg1(subtree->left));
 rebalance(subtree);
     }
 
