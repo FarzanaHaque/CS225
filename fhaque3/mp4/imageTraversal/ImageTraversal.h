@@ -22,10 +22,14 @@ public:
   /**
    * A forward iterator through an ImageTraversal.
    */
+	Point * start_;
+	const PNG *png_;
+	double tolerance_;
   class Iterator : std::iterator<std::forward_iterator_tag, Point> {
   public:
     Iterator();
-
+    Iterator(Point * point);
+Point * point_;
     Iterator & operator++();
     Point operator*();
     bool operator!=(const Iterator &other);
