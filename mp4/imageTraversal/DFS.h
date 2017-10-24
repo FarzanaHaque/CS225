@@ -27,8 +27,8 @@ public:
   Point pop();
   Point peek() const;
   bool empty() const;
-stack<Point> DFSstack;
-list<Point>Traveled;
+stack<Point*> DFSstack;
+//list<Point>Traveled;
 private:
 
 };

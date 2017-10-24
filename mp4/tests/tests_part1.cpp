@@ -45,6 +45,7 @@ TEST_CASE("DFS iterator starts at the start point", "[weight=1][part=1]") {
   Point startPoint(1, 1);
   
   DFS dfs(png, startPoint, 0.2);
+//cout<<"req problems"<<endl;
   REQUIRE( *(dfs.begin()) == startPoint );
 }
 

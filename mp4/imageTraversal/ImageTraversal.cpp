@@ -32,6 +32,11 @@ double ImageTraversal::calculateDelta(const HSLAPixel & p1, const HSLAPixel & p2
  */
 ImageTraversal::Iterator::Iterator() {
   /** @todo [Part 1] */
+
+}
+ImageTraversal::Iterator::Iterator(Point * point) {
+  /** @todo [Part 1] */
+point_=point;
 }
 
 /**
@@ -51,7 +56,8 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
  */
 Point ImageTraversal::Iterator::operator*() {
   /** @todo [Part 1] */
-  return Point(0, 0);
+//cout<<point_<<endl;
+  return *point_;
 }
 
 /**

@@ -18,35 +18,70 @@
  */
 DFS::DFS(const PNG & png, const Point & start, double tolerance) {  
   /** @todo [Part 1] */
-*begin =iterator();
-HSLAPixel * startpix=png.getPixel(start->x,start->y);
+//Iterator begin()= start;
 
+
+//HSLAPixel * startpix=png.getPixel(start.x,start.y);
+start_=new Point(start.x,start.y);
+png_=&png;
+tolerance_=tolerance;
+DFSstack.push(start_);
+}
+
+/**
+ * Returns an iterator for the traversal starting at the first point.
+ */
+ImageTraversal::Iterator DFS::begin() {
+  /** @todo [Part 1] */
+
+//Point *fake=new Point(43,2);
+
+
+  return ImageTraversal::Iterator(start_);//start
+}
+
+/**
+ * Returns an iterator for the traversal one past the end of the traversal.
+ */
+ImageTraversal::Iterator DFS::end() {
+  /** @todo [Part 1] */
+
+Point * end=NULL;
+
+  return ImageTraversal::Iterator(end);//end
+}
+
+/**
+ * Adds a Point for the traversal to visit at some point in the future.
+ */
+void DFS::add(const Point & point) {
+  /** @todo [Part 1] */
 /*Point * right;//x+1
 Point * below;//y+1
 Point * left;//x-1
 Point * above;//y-1*/
 
-int x=start->x;
-int y=start->y;
-if(x<=width){
-Point * right=new Point(x+1,y);
+unsigned int x=point.x;
+unsigned int y=point.y;
+if(x<=png_->width()){
+Point *right=new Point(x+1,y);
 DFSstack.push(right);
 //check if already visited & tolerance
 
 }
-if(y<=height){
+if(y<=png_->height()){
 Point * below=new Point(x,y+1);
 DFSstack.push(below);
 //check if already visited & tolerance
 
 }
-if(0<=x-1){
+if(1<=x){
 Point * left=new Point(x-1,y);
 DFSstack.push(left);
 //check if already visited & tolerance
 
 }
-if(0<=y-1){
+if(1<=y){
 Point * above=new Point(x,y-1);
 DFSstack.push(above);
 //check if already visited & tolerance
@@ -55,36 +90,17 @@ DFSstack.push(above);
 }
 
 /**
- * Returns an iterator for the traversal starting at the first point.
- */
-ImageTraversal::Iterator DFS::begin() {
-  /** @todo [Part 1] */
-//ImageTraversal::Iterator begin();
-Iterator begin()
-  return ImageTraversal::Iterator();
-}
-
-/**
- * Returns an iterator for the traversal one past the end of the traversal.
- */
-ImageTraversal::Iterator DFS::end() {
-  /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
-}
-
-/**
- * Adds a Point for the traversal to visit at some point in the future.
- */
-void DFS::add(const Point & point) {
-  /** @todo [Part 1] */
-}
-
-/**
  * Removes and returns the current Point in the traversal.
  */
 Point DFS::pop() {
   /** @todo [Part 1] */
-  return Point(0, 0);
+  //return Point(0, 0);
+//Point  * popped;
+
+
+Point * popped=DFSstack.top();
+DFSstack.pop();
+return *popped;
 }
 
 /**
@@ -92,7 +108,9 @@ Point DFS::pop() {
  */
 Point DFS::peek() const {
   /** @todo [Part 1] */
-  return Point(0, 0);
+Point * peaked=DFSstack.top();
+
+return *peaked;
 }
 
 /**
@@ -100,5 +118,5 @@ Point DFS::peek() const {
  */
 bool DFS::empty() const {
   /** @todo [Part 1] */
-  return true;
+  return DFSstack.empty();
 }
