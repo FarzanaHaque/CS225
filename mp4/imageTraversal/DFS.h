@@ -24,6 +24,7 @@ public:
   ImageTraversal::Iterator end();
 
   void add(const Point & point);
+  void add(Point & point);
   Point pop();
   Point peek() const;
   bool empty() const;
