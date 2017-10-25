@@ -18,6 +18,10 @@ using namespace cs225;
  */
 BFS::BFS(const PNG & png, const Point & start, double tolerance) {  
   /** @todo [Part 1] */
+start_=new Point(start.x,start.y);
+png_=&png;
+tolerance_=tolerance;
+BFSqueue.push(start_);
 }
 
 /**
@@ -25,7 +29,8 @@ BFS::BFS(const PNG & png, const Point & start, double tolerance) {
  */
 ImageTraversal::Iterator BFS::begin() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
+//  return ImageTraversal::Iterator();
+  return ImageTraversal::Iterator(start_,this);//start
 }
 
 /**
@@ -33,7 +38,9 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
+ Point * end=NULL;
+ 
+  return ImageTraversal::Iterator(end,this);//end
 }
 
 /**
@@ -41,6 +48,37 @@ ImageTraversal::Iterator BFS::end() {
  */
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
+/*Point * right;//x+1
+Point * below;//y+1
+Point * left;//x-1
+Point * above;//y-1*/
+ 
+unsigned int x=point.x;
+unsigned int y=point.y;
+if(x<=png_->width()){
+Point *right=new Point(x+1,y);
+BFSqueue.push(right);
+//check if already visited & tolerance
+ 
+}
+if(y<=png_->height()){
+Point * below=new Point(x,y+1);
+BFSqueue.push(below);
+//check if already visited & tolerance
+ 
+}
+if(1<=x){
+Point * left=new Point(x-1,y);
+BFSqueue.push(left);
+//check if already visited & tolerance
+ 
+}
+if(1<=y){
+Point * above=new Point(x,y-1);
+BFSqueue.push(above);
+//check if already visited & tolerance
+ 
+}
 }
 
 /**
@@ -48,7 +86,9 @@ void BFS::add(const Point & point) {
  */
 Point BFS::pop() {
   /** @todo [Part 1] */
-  return Point(0, 0);
+Point * popped=BFSqueue.front();
+BFSqueue.pop();
+return *popped;
 }
 
 /**
@@ -56,7 +96,8 @@ Point BFS::pop() {
  */
 Point BFS::peek() const {
   /** @todo [Part 1] */
-  return Point(0, 0);
+Point * popped=BFSqueue.front();
+return *popped;
 }
 
 /**
@@ -64,5 +105,5 @@ Point BFS::peek() const {
  */
 bool BFS::empty() const {
   /** @todo [Part 1] */
-  return true;
+  return BFSqueue.empty();
 }

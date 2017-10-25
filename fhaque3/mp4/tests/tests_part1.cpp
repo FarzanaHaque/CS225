@@ -43,13 +43,14 @@ PNG getTestPNG() {
 TEST_CASE("DFS iterator starts at the start point", "[weight=1][part=1]") {
   PNG png = getTestPNG();
   Point startPoint(1, 1);
-  
+//cout<<"DFS problems"<<endl;  
   DFS dfs(png, startPoint, 0.2);
 //cout<<"req problems"<<endl;
   REQUIRE( *(dfs.begin()) == startPoint );
+//cout <<"not problem" <<endl;
 }
 
-TEST_CASE("DFS visits the right pixel first", "[weight=1][part=1]") {
+TEST_CASE("DFS visits the correct pixel first", "[weight=1][part=1]") {
   PNG png = getTestPNG();
   Point startPoint(1, 1);
   
@@ -68,7 +69,7 @@ TEST_CASE("BFS iterator starts at the start point", "[weight=1][part=1]") {
   REQUIRE( *(bfs.begin()) == startPoint );
 }
 
-TEST_CASE("BFS visits the right pixel first", "[weight=1][part=1]") {
+TEST_CASE("BFS visits the correct pixel first", "[weight=1][part=1]") {
   PNG png = getTestPNG();
   Point startPoint(1, 1);
   

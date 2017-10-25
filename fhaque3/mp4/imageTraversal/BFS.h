@@ -27,7 +27,7 @@ public:
   Point pop();
   Point peek() const;
   bool empty() const;
-
+queue<Point*> BFSqueue;
 private:
 };
 
