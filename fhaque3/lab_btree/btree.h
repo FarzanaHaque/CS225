@@ -349,16 +349,21 @@ size_t insertion_idx(const std::vector<T>& elements, const C& val)
 //val can be be data pair or K value
 // bool found=0;
 // while(!found){
-   int j=0;
-   for (auto i = elements.begin(); i != elements.end(); ++i) {
+//   int j=0;
+/*   for (auto i = elements.begin(); i != elements.end(); ++i) {
      if(val.key==*i || val.key > *i) return j;
  //if(*val>*i){return j;}
 	j++; 
 //std::cout <<i->key<<std::endl;
    }
-
+*/
+int i=0;
+int length= elements.size();
+for(i=0;i<length;i++){
+	if(val<elements[i]) return i;
+}
  //}
-    return j;
+    return length;
 }
 
 #include "btree_given.cpp"

@@ -46,6 +46,10 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
+
+
+if(subroot->elements[first_larger_idx]== key){return subroot->elements[first_larger_idx].value;}
+else{}
     return V();
 }
 
