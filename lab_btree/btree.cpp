@@ -49,7 +49,8 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
 
 
 if(subroot->elements[first_larger_idx]== key){return subroot->elements[first_larger_idx].value;}
-else{}
+else if(subroot->children.empty()){return V();}
+else{find(subroot->children[first_larger_idx],key);}
     return V();
 }
 
