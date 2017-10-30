@@ -357,10 +357,13 @@ size_t insertion_idx(const std::vector<T>& elements, const C& val)
 //std::cout <<i->key<<std::endl;
    }
 */
+//std::cout<<val<<std::endl;
 int i=0;
 int length= elements.size();
 for(i=0;i<length;i++){
-	if(val<elements[i]) return i;
+	if(val<elements[i]|| val==elements[i]) {return i;
+		//std::cout<<elements[i]<<std::endl;
+		}
 }
  //}
     return length;
