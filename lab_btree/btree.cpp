@@ -32,6 +32,30 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
 {
     /* TODO Your code goes here! */
     size_t first_larger_idx = insertion_idx(subroot->elements, key);
+	//if(subroot->elements.size() == 0)	{
+	//	return V();
+	//}
+	//if (first_larger_idx > subroot->elements.size())	{
+		
+	//}
+	//if(subroot->elements[first_larger_idx] == NULL)	{
+	//	return V();
+	//}
+
+	if(first_larger_idx < subroot->elements.size())	{
+		if(subroot->elements[first_larger_idx] == key)	{
+			return subroot->elements[first_larger_idx].value;
+		}
+	}
+	else if (subroot->children.empty())	{
+		//std::cout<<"EMPTY CHILDREN"<<*subroot<<std::endl;
+		return V();
+	}
+	else	{
+		return find(subroot->children[first_larger_idx], key);		
+	}
+
+
 
     /* If first_larger_idx is a valid index and the key there is the key we
      * are looking for, we are done. */
@@ -46,11 +70,6 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
-
-
-if(subroot->elements[first_larger_idx]== key){return subroot->elements[first_larger_idx].value;}
-else if(subroot->children.empty()){return V();}
-else{find(subroot->children[first_larger_idx],key);}
     return V();
 }
 
@@ -147,10 +166,42 @@ void BTree<K, V>::split_child(BTreeNode* parent, size_t child_idx)
     /* Iterator for the middle child. */
     auto mid_child_itr = child->children.begin() + mid_child_idx;
 
+	parent->elements.insert(elem_itr, child->elements[mid_elem_idx]);
+	parent->children.insert(child_itr, new_right);
+	new_right->elements.assign(mid_elem_itr+1, child->elements.end());
+	new_right->children.assign(mid_child_itr, child->children.end());
+	new_left->elements.erase(mid_elem_itr,child->elements.end());
+	new_left->children.erase(mid_child_itr,child->children.end());
+
+
+	//do we have ANY EMPTY/ SEG FAULT WORRIES HERE???
+	//new_left->elements.resize(mid_elem_idx);
+	//new_left->children.resize(mid_child_idx);
+
+
+
+
+	//size_t first_larger_idx = insertion_idx(parent->elements, child->elements[mid_elem_idx]);
+	/*parent->elements[first_larger_idx] = child->elements[mid_elem_idx];
+	//parent->elements[parent->elements.size()] = child->elements[mid_elem_idx];
+	//for(size_t index = 0; index < mid_elem_idx - 1; index ++)	{
+		
+	//}
+	for(size_t index = mid_elem_idx + 1; index < child->elements.size(); index++)	{
+		new_right->elements[index] = child->elements[index];
+		new_right->children[index] = child->children[index];
+	}
+	new_left->elements.resize(mid_elem_idx);
+	new_left->children.resize(mid_elem_idx);*/
+
+	//parent->elements.end() + 1  = mid_child_itr;
+
+	
+
     /* TODO Your code goes here! */
 }
 
-/**
+/*
  * Private recursive version of the insert function.
  * @param subroot A reference of a pointer to the current BTreeNode.
  * @param pair The DataPair to be inserted.
@@ -170,5 +221,63 @@ void BTree<K, V>::insert(BTreeNode* subroot, const DataPair& pair)
      */
 
     size_t first_larger_idx = insertion_idx(subroot->elements, pair);
+    if(first_larger_idx!=subroot->elements.size()){
+		if(subroot->elements[first_larger_idx] == pair)	{
+			return;
+		}
+    }
+    else if(subroot->children.empty())	{
+		//insert(pair.key, pair.value);
+		vector<DataPair> copy;
+		unsigned counter = 0;
+		for(size_t index = first_larger_idx; index < subroot->elements.size(); index++)	{
+			copy[counter] = subroot->elements[index];
+			counter++;
+		}
+		subroot->elements[first_larger_idx] = pair;
+		counter = 0;
+		for(size_t index = first_larger_idx + 1; index < subroot->elements.size(); index++)	{
+			subroot->elements[index] = copy[counter];
+			counter++;
+		}
+
+
+
+	auto iterator=subroot->elements.begin()+first_larger_idx;
+
+	//insert(subroot->elements[first_larger_idx],pair);
+	subroot->elements.insert(iterator,pair);
+	//	if(subroot->elements.size() > this->order)	{
+	//		split_child(subroot, first_larger_idx);
+	//	}
+	}
+	//if(subroot->children.empty())	{
+		
+//	}
+	else	{
+		//if(first_larger_idx > subroot->children.size() - 1)	{
+		insert(subroot->children[first_larger_idx], pair);			
+		//}
+		size_t median;
+		//change to use lower
+		if(subroot->children[first_larger_idx]->elements.size() >= this->order)	{
+			//???????????????????/median = insertion_idx(subroot->elements, subroot->children[first_larger_idx]->elements[first_larger_idx]);
+			//????????????/split_child(subroot, median);
+		split_child(subroot,first_larger_idx);
+		}
+		//insert(subroot->children[first_larger_idx], pair);
+	}
+
+	/*if(subroot == NULL)	{
+		insert(pair.key, pair.value);
+	}
+	else	{
+		insert(subroot->children[first_larger_idx], pair);
+	}*/
+	//if(subroot->children[first_larger_idx]->elements.size() > )	{
+
+//	}
     /* TODO Your code goes here! */
+return;
 }
+
