@@ -76,7 +76,35 @@ void SCHashTable<K, V>::remove(K const& key)
      * erase() function on std::list!
      */
 
-    (void) key; // prevent warnings... When you implement this function, remove this line.
+//    (void) key; // prevent warnings... When you implement this function, remove this line.
+
+if(!keyExists(key))return;//doesn't exist
+else
+{
+    size_t idx = hash(key, size);
+    typename list<pair<K, V>>::iterator it;
+    for (it = table[idx].begin(); it != table[idx].end(); it++) {
+        if (it->first == key)
+	/*typename list<pair<K,V>>::iterator itold;
+	itold=it;
+	it++;*/
+            table[idx].erase(it);
+		return;
+    }
+    return;// should never happen
+
+}
+/*
+typename list< pair<K,V> >::iterator it = table[i].begin();
+std::list<std::pair<K, V>> it = table[i].begin();
+table[i].erase(it);
+it++;
+	*/
+
+
+
+
+
 }
 
 template <class K, class V>
@@ -144,4 +172,17 @@ void SCHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
+
+size_t oldsize=size;
+size=findPrime(size*2);
+std::list<std::pair<K,V>>*newtable=new list<pair<K,V>>[size];
+for(size_t i=0;i<oldsize;i++)
+{
+newtable[i]=table[i];
+}
+delete[] table;
+table=newtable;
+//elemes the same?
+
+	
 }
