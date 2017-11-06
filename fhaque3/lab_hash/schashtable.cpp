@@ -1,4 +1,5 @@
 /**
+
  * @file schashtable.cpp
  * Implementation of the SCHashTable class.
  *
@@ -8,11 +9,10 @@
  */
 
 #include "schashtable.h"
-
+#include <iostream>
 using hashes::hash;
 using std::list;
 using std::pair;
-
 template <class K, class V>
 SCHashTable<K, V>::SCHashTable(size_t tsize)
 {
@@ -69,6 +69,17 @@ template <class K, class V>
 void SCHashTable<K, V>::remove(K const& key)
 {
     typename list<pair<K, V>>::iterator it;
+
+	size_t index;
+	index = hash(key, size);
+	for(it = table[index].begin(); it != table[index].end(); it++)	{
+		if(it->first == key)	{
+			table[index].erase(it);
+			elems = elems - 1;
+			break;
+		}
+	}
+
     /**
      * @todo Implement this function.
      *
@@ -76,35 +87,7 @@ void SCHashTable<K, V>::remove(K const& key)
      * erase() function on std::list!
      */
 
-//    (void) key; // prevent warnings... When you implement this function, remove this line.
-
-if(!keyExists(key))return;//doesn't exist
-else
-{
-    size_t idx = hash(key, size);
-    typename list<pair<K, V>>::iterator it;
-    for (it = table[idx].begin(); it != table[idx].end(); it++) {
-        if (it->first == key)
-	/*typename list<pair<K,V>>::iterator itold;
-	itold=it;
-	it++;*/
-            table[idx].erase(it);
-		return;
-    }
-    return;// should never happen
-
-}
-/*
-typename list< pair<K,V> >::iterator it = table[i].begin();
-std::list<std::pair<K, V>> it = table[i].begin();
-table[i].erase(it);
-it++;
-	*/
-
-
-
-
-
+    //(void) key; // prevent warnings... When you implement this function, remove this line.
 }
 
 template <class K, class V>
@@ -164,6 +147,69 @@ template <class K, class V>
 void SCHashTable<K, V>::resizeTable()
 {
     typename list<pair<K, V>>::iterator it;
+	typename list<pair<K, V>>::iterator myIt;
+	size_t newSize;
+	size_t originalSize;
+	size_t index;
+	//newSize = findPrime(2*hash(key, size));
+	//newSize = findPrime(2*this->tableSize());
+	newSize = findPrime(2*size);
+	
+	list<pair<K, V>> *temp = new list<pair<K, V>>[newSize];
+	//pair<K,V> *pair;
+	for(index = 0; index < size; index++)	{
+		//temp[index] = NULL;
+		temp[index].resize(table[index].size());
+		myIt = temp[index].begin();
+		for(it = table[index].begin(); it != table[index].end(); it++)	{
+			size_t count = hash(it->first, newSize);
+			pair<K, V> pair(it->first, it->second);
+			temp[count].push_back(pair);
+			//myIt->first = it->first;
+			//myIt->second = it->second;
+                        //myIt++;
+		}
+		/*for(it = table[index].begin(); it != table[index].end(); it++)	{
+			std::cout << "table: key, value: " << it->first << it->second << std::endl;
+			 std::cout << "new table: key, value: " << myIt->first << myIt->second << std::endl;
+		}*/
+		//temp[index] = table[index];
+	}
+
+	//myIt = temp[index].begin();
+	/*for(index = 0; index < size; index++)	{
+		myIt = temp[index].begin();
+		for(it = table[index].begin(); it != table[index].end(); it++)	{
+			//temp[index] = table[index];
+			//temp[index].key = it->first;
+			//temp[index].second = it->second;
+			myIt->first = it->first;
+			myIt->second = it->second;
+			myIt++;
+		}
+	}*/
+	
+
+	//table->resize(newSize);
+	/*originalSize = this->tableSize();
+	for(index = 0; index < originalSize; index++)	{
+		//for(it = newTable[index].begin(); it != newTable[index].end(); it++)	{
+			newTable[index] = table[index];
+			//newTable->insert(it->first, it->second);
+			//insert(it->first, it->second);
+		//}
+	}*/
+	//delete newTable;
+
+	delete[] table;
+	table = temp;
+	size = newSize;
+	//table = newTable;
+
+    // don't delete elements since we just moved their pointers around
+    //     table = temp;
+    //         size = newSize;
+
     /**
      * @todo Implement this function.
      *
@@ -172,17 +218,4 @@ void SCHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
-
-size_t oldsize=size;
-size=findPrime(size*2);
-std::list<std::pair<K,V>>*newtable=new list<pair<K,V>>[size];
-for(size_t i=0;i<oldsize;i++)
-{
-newtable[i]=table[i];
-}
-delete[] table;
-table=newtable;
-//elemes the same?
-
-	
 }
