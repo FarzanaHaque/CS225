@@ -78,6 +78,28 @@ LPHashTable<K, V>::LPHashTable(LPHashTable<K, V> const& other)
 template <class K, class V>
 void LPHashTable<K, V>::insert(K const& key, V const& value)
 {
+	size_t index;
+	//index = findIndex(key);
+	//table[index]->first = key;
+	//table[index]->second = value;
+	index = hash(key, size);
+	elems++;
+	while(should_probe[index])	{
+		index++;		
+	}
+//	if(index == NULL)	{
+
+//	}
+	if(table[index] == NULL)	{
+		table[index] = new pair<K, V>(key, value);
+	}
+	should_probe[index] = true;
+	if((elems/size) >= 0.7)	{
+		resizeTable();
+	}
+	//for(index = 0; index < tableSize; index++)	{
+	//	findIndex(key);		
+	//}
     /**
      * @todo Implement this function.
      *
@@ -86,8 +108,9 @@ void LPHashTable<K, V>::insert(K const& key, V const& value)
      *  forget to mark the cell for probing with should_probe!
      */
 
-    (void) key;   // prevent warnings... When you implement this function, remove this line.
-    (void) value; // prevent warnings... When you implement this function, remove this line.
+
+    //(void) key;   // prevent warnings... When you implement this function, remove this line.
+    //(void) value; // prevent warnings... When you implement this function, remove this line.
 }
 
 template <class K, class V>
@@ -187,3 +210,6 @@ void LPHashTable<K, V>::resizeTable()
     table = temp;
     size = newSize;
 }
+
+
+
