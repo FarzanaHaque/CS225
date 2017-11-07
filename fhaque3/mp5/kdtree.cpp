@@ -168,14 +168,15 @@ Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & qu
 	int medium=(left+right)/2;
 	bool ltree=false;
 	bool rtree=false;
-	if(smallerDimVal(query,currentBest,d)&&medium-1>=left) //target in left
+if(query==points[medium])return points[medium];
+	if(smallerDimVal(query,points[medium],d)&&medium-1>=left) //target in left
 	{
 		target=NNhelper(left,medium-1,(d+1)%Dim,query,currentBest);
 		ltree=true;
 	        if(shouldReplace(query,currentBest,target)) best=target;
 	} 
 //target in right
-	else if(smallerDimVal(currentBest,query,d)&&(medium+1)<=right)
+	else if(smallerDimVal(points[medium],query,d)&&(medium+1)<=right)
 	{
 		target=NNhelper(medium+1,right,(d+1)%Dim,query,currentBest);
 		rtree=true;
