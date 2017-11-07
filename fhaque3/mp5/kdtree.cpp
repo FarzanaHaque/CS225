@@ -76,7 +76,7 @@ int KDTree<Dim>::partition(int left, int right, int pivotIndex, int dim)// do we
 	int storeIndex=left;
 	for(int i=left;i<right;i++)
 	{
-		if(smallerDimVal(points[i],pivotValue, dim)|| points[i] == pivotValue)//|| points[i] == pivot????
+		if(smallerDimVal(points[i],pivotValue, dim));//|| points[i] == pivotValue
 		{
 			Point<Dim> sI=points[storeIndex];
 			Point<Dim> pointsI=points[i];
@@ -162,5 +162,25 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
     /**
      * @todo Implement this function!
      */
-    return Point<Dim>();
+
+
+
+
+    //return Point<Dim>();
+
+NNhelper(0,points.size()-1,0,query);
 }
+template <int Dim>
+Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query)
+{
+int dim=d;
+while(left!=right)
+{
+	if(smallerDimValue(first,second,dim))
+	{
+
+	}	
+}
+}
+
+
