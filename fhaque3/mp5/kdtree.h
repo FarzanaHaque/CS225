@@ -255,8 +255,9 @@ second=ofirst;
      * @todo Add your helper functions here.
      */
 //help function I created
-int partition(const vector<Point<Dim>>& newPoints, int left, int right, int pivotIndex);
-Point<Dim> select(const vector<Point<Dim>>& list, int left, int right, int k, int dim);
+int partition(int left, int right, int pivotIndex, int dim);
+void select( int left, int right, int k, int dim);
+void KDhelper(int a,int b,int d);
 };
 
 #include "kdtree.cpp"
