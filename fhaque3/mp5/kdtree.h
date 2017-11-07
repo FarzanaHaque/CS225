@@ -226,6 +226,19 @@ class KDTree
     /** Helper function for grading */
     Point<Dim> getPoint(unsigned index) const;
 
+//help function I created
+//int partition(const vector<Point<Dim>>& newPoints, int left, int right, int pivotIndex);
+
+/*void swap(Point<Dim>*& first, Point<Dim>*& second)
+{
+Point ofirst=first;
+Point osecond=second;
+first=osecond;
+second=ofirst;
+}*/
+
+
+
   private:
     /** This is your KDTree representation. Modify this vector to create a
      * KDTree. */
@@ -241,7 +254,9 @@ class KDTree
     /**
      * @todo Add your helper functions here.
      */
-
+//help function I created
+int partition(const vector<Point<Dim>>& newPoints, int left, int right, int pivotIndex);
+Point<Dim> select(const vector<Point<Dim>>& list, int left, int right, int k, int dim);
 };
 
 #include "kdtree.cpp"
