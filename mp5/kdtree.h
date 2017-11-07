@@ -258,6 +258,7 @@ second=ofirst;
 int partition(int left, int right, int pivotIndex, int dim);
 void select( int left, int right, int k, int dim);
 void KDhelper(int a,int b,int d);
+Point<Dim> NNhelper(int left,int right,int d,const Point <Dim> & query, const Point <Dim> & currentBest) const;
 };
 
 #include "kdtree.cpp"
