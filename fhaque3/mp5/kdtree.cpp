@@ -76,7 +76,7 @@ int KDTree<Dim>::partition(int left, int right, int pivotIndex, int dim)// do we
 	int storeIndex=left;
 	for(int i=left;i<right;i++)
 	{
-		if(smallerDimVal(points[i],pivotValue, dim));//|| points[i] == pivotValue
+		if(smallerDimVal(points[i],pivotValue, dim))//|| points[i] == pivotValue
 		{
 			Point<Dim> sI=points[storeIndex];
 			Point<Dim> pointsI=points[i];
@@ -167,20 +167,93 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 
 
     //return Point<Dim>();
-
-NNhelper(0,points.size()-1,0,query);
+Point <Dim> middle=points[(points.size()-1)/2];//top node, curr best guess
+Point<Dim> neighbor= NNhelper(0,points.size()-1,0,query,middle);
+return neighbor;
+//return middle;
 }
 template <int Dim>
-Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query)
+Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query, const Point <Dim> & currentBest) const// why this const???
 {
-int dim=d;
-while(left!=right)
+// need to make sure left & right alwyays stay within bounds
+if(currentBest==query) return currentBest; //exact match
+if(left==right)//leaf node
 {
-	if(smallerDimValue(first,second,dim))
-	{
+if(shouldReplace(query,currentBest,points[left]) )return points[left];
+else return currentBest;
+}
+//now not a leaf, go to target how to deal 1 child null???????
+Point<Dim> best=currentBest;
+Point<Dim> target;
+int medium=(left+right)/2;
+bool ltree=false;
+bool rtree=false;
+if(smallerDimVal(query,currentBest,(d+1)%Dim)&&medium-1>=left) //target in left
+{target=NNhelper(left,medium-1,(d+1)%Dim,query,currentBest);
+ltree=true;
+} 
+//target in right
+else if(smallerDimVal(currentBest,query,(d+1)%Dim)&&(medium+1)<=right)
+{target=NNhelper(medium+1,right,(d+1)%Dim,query,currentBest);
+rtree=true;
+}
 
+if(shouldReplace(query,currentBest,target)) best=target;
+//compare target with current best
+//is the current already checked??????
+//now check cutting plane stuff
+double bestd=0;
+	for(int i=0;i<Dim;i++)
+	{
+	bestd=bestd+((query[i]-best[i])*(query[i]-best[i]));
+	}
+
+double cutd=((query[d]-currentBest[d])*(query[d]-currentBest[d]));
+Point<Dim> Otree=best;
+if(cutd<=bestd)
+{//check other subtree that's not target
+if(ltree&&(medium+1)<=right)Otree=NNhelper(medium+1,right,(d+1)%Dim,query,best);
+else if(rtree&&medium-1>=left)Otree=NNhelper(left,medium-1,(d+1)%Dim,query,best);
+if(shouldReplace(query,best,Otree))best=Otree;
+}
+return best;
+}
+
+
+
+/* returns found tree
+Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query, const Point <Dim> & currentBest) const// why this const???
+{
+//int middle=(left+right)/2;
+Point <Dim> best=currentBest;
+int dim=d;
+Point <Dim> foundtree=currentBest;
+int fakel=left;
+int faker=right;
+while(fakel<faker)//not leaf node
+{
+int fmedium=(fakel+faker)/2;
+	if(smallerDimVal(query,foundtree,(dim+1)%Dim))
+	{
+		//go to left subtree
+	faker=fmedium-1;
+	fmedium=(fakel+faker)/2;
+	foundtree=points[fmedium];
+
+	}
+	else if(smallerDimVal(foundtree,query,(dim+1)%Dim))
+	{
+		//go to right subtree
+	fakel=fmedium+1;
+	fmedium=(fakel+faker)/2;
+	foundtree=points[fmedium];
 	}	
+if(foundtree==query)return foundtree;
+if(shouldReplace(query,best,foundtree))best=foundtree;
 }
+//return foundtree;/// should just be the slice that would contain it
+
 }
+*/
 
 
