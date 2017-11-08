@@ -155,6 +155,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 template <int Dim>
 Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query, const Point <Dim> & currentBest) const// why this const???
 {
+if(left<0||left>right) return currentBest;
 // need to make sure left & right alwyays stay within bounds
 	if(currentBest==query) return currentBest; //exact match
 	if(left==right)//leaf node
