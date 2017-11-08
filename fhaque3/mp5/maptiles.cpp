@@ -42,7 +42,7 @@ HSLAPixel avg=theTiles[a].getAverageColor();
 temp[0]=avg.h;
 temp[1]=avg.s;
 temp[2]=avg.l;*/
-Point<3>apoint(avg.h,avg.s,avg.l);
+Point<3>apoint(avg.h/360,avg.s,avg.l);
 points.push_back(apoint);
 tmap[points[a]] = a;
 }
@@ -66,7 +66,7 @@ for(int i=0;i<rows;i++)
 		{
 		HSLAPixel regcolor=theSource.getRegionColor(i,j);
 		Point<3> spoint;
-		spoint[0]=regcolor.h;
+		spoint[0]=regcolor.h/360;
 		spoint[1]=regcolor.s;
 		spoint[2]=regcolor.l;
 		Point<3> nearest=tree.findNearestNeighbor(spoint);
