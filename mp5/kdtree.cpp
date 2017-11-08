@@ -155,7 +155,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 template <int Dim>
 Point<Dim> KDTree<Dim>::NNhelper(int left,int right,int d,const Point <Dim> & query, const Point <Dim> & currentBest) const// why this const???
 {
-if(left<0||left>right) return currentBest;
+if(left<0||left>right) return currentBest;//invalid entry
 // need to make sure left & right alwyays stay within bounds
 	if(currentBest==query) return currentBest; //exact match
 	if(left==right)//leaf node
@@ -170,14 +170,14 @@ if(left<0||left>right) return currentBest;
 	bool ltree=false;
 	bool rtree=false;
 if(query==points[medium])return points[medium];
-	if(smallerDimVal(query,points[medium],d)&&medium-1>=left) //target in left
+	if(smallerDimVal(query,points[medium],d))//&&medium-1>=left) //target in left
 	{
 		target=NNhelper(left,medium-1,(d+1)%Dim,query,currentBest);
 		ltree=true;
 	        if(shouldReplace(query,currentBest,target)) best=target;
 	} 
 //target in right
-	else if(smallerDimVal(points[medium],query,d)&&(medium+1)<=right)
+	else if(smallerDimVal(points[medium],query,d))//&&(medium+1)<=right)
 	{
 		target=NNhelper(medium+1,right,(d+1)%Dim,query,currentBest);
 		rtree=true;
@@ -194,7 +194,7 @@ if(shouldReplace(query,best,points[medium])) best=points[medium];//checks curren
 		bestd=bestd+((query[i]-best[i])*(query[i]-best[i]));
 	}
 
-	double cutd=((query[d]-currentBest[d])*(query[d]-currentBest[d]));
+	double cutd=((query[d]-points[medium][d])*(query[d]-points[medium][d]));
 	Point<Dim> Otree=best;
 	if(cutd<=bestd)
 	{//check other subtree that's not target
