@@ -65,7 +65,7 @@ TEST_CASE("test_build_heap_1")
 	heap<int> myHeap(vals);
 	vector<int> test;
 	myHeap.getElems(test);
-	vector<int> expected = {1, 2, 3};
+	vector<int> expected = {1,2,3};//{1, 3, 2}; why does the order of the children matter?????
 	bool matches = (test == expected);
 	REQUIRE(matches == true);
 }
