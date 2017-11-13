@@ -108,14 +108,19 @@ template <class T, class Compare>
 T heap<T, Compare>::pop()
 {
     /// @todo Remove, and return, the element with highest priority
-    return T();
+    T top=_elems[root()];
+T bottom=_elems[_elems.size()-1];
+_elems.pop_back();
+_elems[root()]=bottom;
+heapifyDown(root());
+return top;
 }
 
 template <class T, class Compare>
 T heap<T, Compare>::peek() const
 {
     /// @todo Return, but do not remove, the element with highest priority
-  return _elems[1];  
+  return _elems[root()];  
 /*return T();rst parameter has a higher priority than the second.
 
 Compare is a template parameter and defaults to std::less, which creates a min-heap. So, if T = int and a = 3 and b = 5, higherPriority(a, b) = true (a < b, so a has higher priority) and higherPriority(b, a) = false (b > a, so b has lower priority) */
