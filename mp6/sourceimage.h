@@ -76,3 +76,4 @@ class SourceImage {
 };
 
 #endif /* _SOURCEIMAGE_H */
+

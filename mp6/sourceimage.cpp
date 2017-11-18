@@ -89,3 +89,4 @@ int SourceImage::getColumns() const {
 uint64_t SourceImage::divide(uint64_t a, uint64_t b) {
     return (a + b / 2) / b;
 }
+

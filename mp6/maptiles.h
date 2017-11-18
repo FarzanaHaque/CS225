@@ -29,7 +29,7 @@ using namespace std;
  * @param theSource The input image to construct a photomosaic of
  * @param theTiles The tiles image to use in the mosaic
  */
-MosaicCanvas* mapTiles(SourceImage const& theSource,
+MosaicCanvas* mapTiles(SourceImage const & theSource,
                        vector<TileImage> const& theTiles);
 
 #endif // MAPTILES_H

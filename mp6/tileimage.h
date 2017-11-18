@@ -18,18 +18,18 @@ using namespace cs225;
  */
 class TileImage {
   private:
-    PNG image_;
+    PNG *image_;
     HSLAPixel averageColor_;
 
   public:
     TileImage();
     explicit TileImage(const PNG& theImage);
     HSLAPixel getAverageColor() const { return averageColor_; }
-    int getResolution() const { return image_.width(); }
+    int getResolution() const { return image_->width(); }
     void paste(PNG& canvas, int startX, int startY, int resolution) const;
 
   private:
-    static PNG cropSourceImage(const PNG& source);
+    PNG * cropSourceImage(const PNG& source);
     HSLAPixel calculateAverageColor() const;
     HSLAPixel getScaledPixelDouble(double startX, double endX,
                                    double startY, double endY) const;
