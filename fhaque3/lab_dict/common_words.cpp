@@ -48,12 +48,56 @@ void CommonWords::init_file_word_maps(const vector<string>& filenames)
         // file
         vector<string> words = file_to_vector(filenames[i]);
         /* Your code goes here! */
+//in a specific file, making the vector of strings, words is a temp variable to be placed into file_word_maps, hmmm need to look over mapping again
+
+//    vector<map<string, unsigned int>> file_word_maps;
+
+//go through this vector and map integer, 
+
+    	for (size_t j = 0; j < words.size(); j++) {
+	//need an iterator 
+		string tstring=words[j]; //specific word
+		map<string, unsigned int>::iterator lookup = file_word_maps[i].find(tstring);
+//
+    		if (lookup != file_word_maps[i].end()) {
+        		lookup->second=lookup->second +1;// if in the list already increment by one
+    		} else {
+			file_word_maps[i][tstring]=1;
+    		}
+///
+	}
+
+
     }
 }
 
 void CommonWords::init_common()
 {
     /* Your code goes here! */
+    /**
+     * #common maps a word to the number of documents that word appears in
+     */
+//    std::map<std::string, unsigned int> common;
+//go through file map check each string, if it's not in common add 1
+/*    map<unsigned long, unsigned long>::iterator lookup = memo.find(n);
+    if (lookup != memo.end()) {
+        return lookup->second;
+    } else {
+        unsigned long result = memoized_fib(n - 1)+memoized_fib(n-2);
+        memo[n] = result;
+        return result;
+    }
+*/
+
+
+//map<string, unsigned int>::iterator lookup = common.find();
+	for(size_t i=0;i< file_words_maps.size();i++){
+	//in a specific map, want to get every word	
+	}
+
+
+
+
 }
 
 /**
