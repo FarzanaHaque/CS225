@@ -70,6 +70,8 @@ class CommonWords
      * @param filename The name of the file that will fill the vector
      */
     vector<string> file_to_vector(const string& filename) const;
+vector<string> mywords;
+unsigned int filenum;
 };
 
 #endif
