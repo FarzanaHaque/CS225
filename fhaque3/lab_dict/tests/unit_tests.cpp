@@ -125,6 +125,8 @@ TEST_CASE("test_get_common_words_999", "[weight=15]")
     vector<string> in;
     in.push_back("small1.txt");
     in.push_back("small2.txt");
+///added
+
     CommonWords cw(in);
     vector<string> students = cw.get_common_words(999);
 	vector<string> canon = {};

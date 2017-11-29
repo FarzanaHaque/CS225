@@ -34,7 +34,7 @@ CommonWords::CommonWords(const vector<string>& filenames)
 {
     // initialize all member variables
     init_file_word_maps(filenames);
-    init_common();
+    //init_common();
 }
 
 void CommonWords::init_file_word_maps(const vector<string>& filenames)
@@ -48,6 +48,8 @@ void CommonWords::init_file_word_maps(const vector<string>& filenames)
         // file
         vector<string> words = file_to_vector(filenames[i]);
         /* Your code goes here! */
+
+filenum=filenames.size();
 //in a specific file, making the vector of strings, words is a temp variable to be placed into file_word_maps, hmmm need to look over mapping again
 
 //    vector<map<string, unsigned int>> file_word_maps;
@@ -65,6 +67,18 @@ void CommonWords::init_file_word_maps(const vector<string>& filenames)
 			file_word_maps[i][tstring]=1;
     		}
 ///
+//doing init common 		
+		map<string, unsigned int>::iterator lookup2 = common.find(tstring);
+    		if (lookup2 != common.end()) {//already in common, now need to check it's the first instance in the file
+			if(file_word_maps[i][tstring]==1){        		
+				lookup2->second=lookup2->second +1;// if in common already increment by one
+			}
+    		} else {
+			common[tstring]=1;
+			mywords.push_back(tstring);
+    		}
+//hmm i think i won't use common at all bc yolo
+	
 	}
 
 
@@ -91,11 +105,17 @@ void CommonWords::init_common()
 
 
 //map<string, unsigned int>::iterator lookup = common.find();
-	for(size_t i=0;i< file_words_maps.size();i++){
-	//in a specific map, want to get every word	
+
+
+
+
+/*	for(size_t i=0;i< file_word_maps.size();i++){
+	//in a specific map, want to get every word
+	vector<string> words=file_to_vector(filenames[i]); //all the words in the file, including repeats
+	
 	}
 
-
+*/
 
 
 }
@@ -109,6 +129,28 @@ vector<string> CommonWords::get_common_words(unsigned int n) const
 {
     vector<string> out;
     /* Your code goes here! */
+//go through each word in common, check to see if it's in all 
+    for(size_t i=0;i<mywords.size();i++){
+	string mstring=mywords[i];
+	bool insert = true;
+	auto lookup2=common.find(mstring);
+	//map<string, unsigned int>::iterator lookup2=common.find(mstring);
+	if(lookup2->second!= filenum) insert=false;
+	while(insert){
+		for(size_t j=0;j<file_word_maps.size();j++){
+		auto lookup=file_word_maps[j].find(mstring);
+		//map<string, unsigned int>::iterator lookup=file_word_maps[j].find(mstring);
+		//is this necessary, only doing common words... if(lookup==file_word_maps[j].end()) insert=false; //means it's not in the file
+		if(lookup->second<n) insert=false; //why does this do nothing????
+		}
+	//finished for loop and insert still true
+	if(insert)out.push_back(mstring);
+	insert=false;
+	}
+    }
+
+
+
     return out;
 }
 
