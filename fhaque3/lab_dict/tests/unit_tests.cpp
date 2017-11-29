@@ -91,8 +91,8 @@ TEST_CASE("test_homophones", "[weight=10]")
 {
     PronounceDict d(pronunciations);
     REQUIRE(d.homophones("scent", "CeNt"));
-    REQUIRE((! d.homophones("scent", "DOG")));
-    REQUIRE((! d.homophones("garbage", "Tim")));
+    REQUIRE((!d.homophones("scent", "DOG")));
+    REQUIRE((!d.homophones("garbage", "Tim")));
 }
 
 
