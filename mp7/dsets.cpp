@@ -9,7 +9,7 @@ void DisjointSets::addelements (int num){
 
 int DisjointSets::find (int elem) {
         if(myarray[elem]<0) return elem;
-        else {return find(myarray[elem]);}
+        else {return myarray[elem]=find(myarray[elem]);}
 }
 
 void DisjointSets::setunion(int a, int b){
