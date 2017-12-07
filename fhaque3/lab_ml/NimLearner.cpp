@@ -24,7 +24,14 @@
  * @param startingTokens The number of starting tokens in the game of Nim.
  */
 NimLearner::NimLearner(unsigned startingTokens) : g_(true) {
-
+//	g_.setVertexName(g_.getStartingVertex(),"p1-10");
+	vector<Vertex> vertices;
+	for(unsigned i=0; i<startingTokens;i++){
+		Vector next=insertVertex();
+		Vector next2=insertVertex();
+		vertices.push_back(next);
+		vertices.push_back(next2);
+	}
 }
 
 /**
