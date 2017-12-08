@@ -59,6 +59,7 @@ NimLearner::NimLearner(unsigned startingTokens) : g_(true) {
 	g_.insertEdge(p21,p10);
 	g_.setEdgeWeight(p11,p20,0);
 	g_.setEdgeWeight(p21,p10,0);
+	startingVertex_=g_.getVertexByLabel("p1-"+std::to_string(startingTokens));
 }
 
 /**
@@ -72,7 +73,24 @@ NimLearner::NimLearner(unsigned startingTokens) : g_(true) {
  */
 std::vector<Edge> NimLearner::playRandomGame() const {
   vector<Edge> path;
+Vertex curr=startingVertex_;
+//path.push_back(startingVertex_);
+vector<Vertex> adj=g_.getAdjacent(curr);
+int i=rand()%(adj.size());
+Vertex next=adj[i];
+path.push_back(g_.getEdge(curr,next));
+curr=next;
+adj=g_.getAdjacent(curr);
 
+
+while(!adj.empty()){
+	//vector<Vertex> adj=g_.getAdjacent(curr);
+	int i=rand()%(adj.size());
+	next=adj[i];
+	path.push_back(g_.getEdge(curr,next));
+	curr=next;
+	adj=g_.getAdjacent(curr);
+}
   return path;
 }
 
@@ -94,6 +112,34 @@ std::vector<Edge> NimLearner::playRandomGame() const {
  * @param path A path through the a game of Nim to learn.
  */
 void NimLearner::updateEdgeWeights(const std::vector<Edge> & path) {
+	Edge last=path[path.size()-1];
+	if(g_.getVertexLabel(last.dest)=="p2-0"){//first is winner
+	//loop through edges, evens are +1, odds are -1
+		for(int i=0;i<path.size();i++){
+			Edge e=path[i];
+			int weight=g_.getEdgeWeight(e.source,e.dest);
+			
+			if(i%2==0){
+				g_.setEdgeWeight(e.source,e.dest,weight+1);
+			}
+			else {g_.setEdgeWeight(e.source,e.dest,weight-1);}
+		}
+	}
+	else{//second is winner
+	//loop through edges, evens are -1, odds are +1
+		for(int i=0;i<path.size();i++){
+			Edge e=path[i];
+			int weight=g_.getEdgeWeight(e.source,e.dest);
+			if(i%2==1){
+				g_.setEdgeWeight(e.source,e.dest,weight+1);
+			}
+			else {g_.setEdgeWeight(e.source,e.dest,weight-1);}
+		}
+	}
+
+
+
+
 
 }
 
