@@ -25,13 +25,40 @@
  */
 NimLearner::NimLearner(unsigned startingTokens) : g_(true) {
 //	g_.setVertexName(g_.getStartingVertex(),"p1-10");
-	vector<Vertex> vertices;
-	for(unsigned i=0; i<startingTokens;i++){
-		Vector next=insertVertex();
-		Vector next2=insertVertex();
-		vertices.push_back(next);
-		vertices.push_back(next2);
+	//vector<Vertex> vertices;
+	for(unsigned i=0; i<=startingTokens;i++){
+		Vertex next=g_.insertVertex();
+		Vertex next2=g_.insertVertex();
+		g_.setVertexLabel(next,"p1-"+std::to_string(i));
+		g_.setVertexLabel(next2,"p2-"+std::to_string(i));
+		//vertices.push_back(next);
+		//vertices.push_back(next2);
 	}
+	//Vertex cur=vertices[0];
+	for(unsigned i=startingTokens;i>1;i--){
+		Vertex p1i=g_.getVertexByLabel("p1-"+std::to_string(i));
+		Vertex p2i=g_.getVertexByLabel("p2-"+std::to_string(i));
+		Vertex p1neg1=g_.getVertexByLabel("p1-"+std::to_string(i-1));
+		Vertex p1neg2=g_.getVertexByLabel("p1-"+std::to_string(i-2));
+		Vertex p2neg1=g_.getVertexByLabel("p2-"+std::to_string(i-1));
+		Vertex p2neg2=g_.getVertexByLabel("p2-"+std::to_string(i-2));
+		g_.insertEdge(p1i,p2neg1);
+		g_.insertEdge(p1i,p2neg2);
+		g_.insertEdge(p2i,p1neg1);
+		g_.insertEdge(p2i,p1neg2);
+		g_.setEdgeWeight(p1i,p2neg1,0);
+		g_.setEdgeWeight(p1i,p2neg2,0);
+		g_.setEdgeWeight(p2i,p1neg1,0);
+		g_.setEdgeWeight(p2i,p1neg1,0);
+	}
+	Vertex p11=g_.getVertexByLabel("p1-1");
+	Vertex p21=g_.getVertexByLabel("p2-1");
+	Vertex p10=g_.getVertexByLabel("p1-0");
+	Vertex p20=g_.getVertexByLabel("p2-0");	
+	g_.insertEdge(p11,p20);
+	g_.insertEdge(p21,p10);
+	g_.setEdgeWeight(p11,p20,0);
+	g_.setEdgeWeight(p21,p10,0);
 }
 
 /**
