@@ -18,8 +18,10 @@ class SquareMaze {
 
 	 
 	PNG * drawMazeWithSolution ();
-
-	std::unordered_map<vertex,vector<int>> neighbors;
+	vector<vector<int>> walls;
+	int width;
+	int height;
+	//std::unordered_map<vertex,vector<int>> neighbors;
 	private:
 	DisjointSets forest;
 	//PNG * mypng;
