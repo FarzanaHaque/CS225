@@ -1,4 +1,4 @@
-/*#include "catch.hpp"
+#include "catch.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -207,7 +207,7 @@ TEST_CASE("testMakeMazeRandom", "[weight=10][part2]")
 	else
 		FAIL("Generated the same 50x50 maze twice");
 }
-
+/*
 TEST_CASE("testSolveMazeValidPath", "[weight=10][part2]")
 {
 	SquareMaze maze;
@@ -347,3 +347,4 @@ TEST_CASE("testDrawSolutionLarge", "[weight=10][part2]")
 	REQUIRE(*actualOutput == solnImage);
 }
 */
+
