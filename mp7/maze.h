@@ -4,29 +4,31 @@
 #include<vector>
 #include<algorithm>
 #include <iostream>
-
+#include "cs225/PNG.h"
+using cs225::PNG;
 class SquareMaze {
 	public:
-	SquareMaze()
-	void makeMaze (int width,int height) 
-	bool canTravel (int x, int y, int dir) const 
-	void setWall (int x, int y, int dir, bool exists)
-	vector< int > solveMaze ()
+	SquareMaze();
+	void makeMaze (int width,int height);
+	bool canTravel (int x, int y, int dir) const;
+	void setWall (int x, int y, int dir, bool exists);
+	std::vector< int > solveMaze ();
 	 
-	PNG * drawMaze () const
+	PNG * drawMaze () const;
 
 	 
-	PNG * drawMazeWithSolution ()
+	PNG * drawMazeWithSolution ();
 
-
+	std::unordered_map<vertex,vector<int>> neighbors;
 	private:
-
+	DisjointSets forest;
+	//PNG * mypng;
 	//Graph g_;
 	//Vertex startingVertex_;
 
 
 };
-
+//#include "maze.cpp"
 #endif
 
 

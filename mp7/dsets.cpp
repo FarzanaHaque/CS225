@@ -2,6 +2,9 @@
 #include <vector>
 #include "dsets.h"
 void DisjointSets::addelements (int num){
+	//myarray.clear();
+//clear
+//myarray=std::vector <int>();
         for(int i=0;i<num;i++){
                 myarray.push_back(-1);
         }
