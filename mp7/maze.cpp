@@ -3,23 +3,23 @@
 #include "maze.h"
 SquareMaze::SquareMaze(){}
 void SquareMaze::makeMaze (int width,int height) {
-	width=width;
-	height=height;
+	width_=width;
+	height_=height;
 	int sets=width*height;
 	int last=width*height-1;
 	forest.myarray.clear();
 	forest.addelements(width*height);
 //	int square=0;
-	//walls=null;//= new vector <vector <int>>;
-	walls={};
+	//walls= new vector <vector <int>>;
+	//walls={};
 	/*for(int j=0;j<walls.size();j++){
 		delete walls[j];
 	}*/
 	for(int i=0;i<width*height;i++){
-		//vector<int> temp {1,1};
-		//temp.push_back(1);
-		//temp.push_back(1);
-		walls.push_back({1,1});
+		vector<int> temp {1,1};
+		temp.push_back(1);
+		temp.push_back(1);
+		walls.push_back(temp);
 	}
 	while(sets!=1){
 		int square=rand()%(width*height);
@@ -29,17 +29,17 @@ void SquareMaze::makeMaze (int width,int height) {
 		if(walls[square][dir]==1){//remove this wall
 			if(dir==0&&(square%width!=width-1)){//right and not a right sided square
 				if(forest.find(square)!=forest.find(square+1)){
-					forest.myarray[square+1]=square;
-					//forest.setunion(square,square+1);
-					walls[square][dir]=0;
+					//forest.myarray[square+1]=square;
+					forest.setunion(square,square+1);
+					walls[square][dir]=0;//no wall here
 					sets--;
 				}
 			}
 			if(dir==1&&(square<width*(height-1))){//bottom and not a bottom sided square
 				if(forest.find(square)!=forest.find(square+width)){
-					forest.myarray[square+width]=square;
-					//forest.setunion(square,square+width);
-					walls[square][dir]=0;
+					//forest.myarray[square+width]=square;
+					forest.setunion(square,square+width);
+					walls[square][dir]=0;//no wall here
 					sets--;
 				}
 			}
@@ -94,23 +94,23 @@ bool SquareMaze::canTravel (int x, int y, int dir) const {
     dir = 2 represents a leftward step (-1 to the x coordinate)
     dir = 3 represents an upward step (-1 to the y coordinate)
 *///cant't go off or go through wall
-if(x<0||x>=width||y<0||y>=height) return false;
-if(dir==0&&x!=(width-1)&&walls[x+y*width][0]==0) return true;
-if(dir==1&&y!=(height-1)&&walls[x+y*width[1]==0) return true;
-if(dir==2&&x!=0){if(walls[x+y*width-1][0]=0) return true;}
-if(dir==3&&y!=0){if(walls[x+(y-1)*width-1][1]=0) return true;}
+if(x<0||x>=width_||y<0||y>=height_) return false;
+if(dir==0&&x!=(width_-1)&&walls[x+y*width_][0]==0) return true;
+if(dir==1&&y!=(height_-1)&&walls[x+y*width_][1]==0) return true;
+if(dir==2&&x!=0){if(walls[x+y*width_-1][0]==0) return true;}
+if(dir==3&&y!=0){if(walls[x+(y-1)*width_][1]==0) return true;}
 return false;
 }
 void SquareMaze::setWall (int x, int y, int dir, bool exists){
 //0 right, 1 down
-if(x<0||x>=width||y<0||y>=height) return;
-	if(dir==0&&x!=(width-1)){
-		if(bool)walls[x+y*width][0]=1;
-		else walls[x+y*width][0]=0;
+if(x<0||x>=width_||y<0||y>=height_) return;
+	if(dir==0&&x!=(width_-1)){
+		if(exists)walls[x+y*width_][0]=1;
+		else walls[x+y*width_][0]=0;
 	}
-	if(dir==1&&y!=(height-1){
-		if(bool)walls[x+y*width][1]=1;
-		else walls[x+y*width][1]=0;
+	if(dir==1&&y!=(height_-1)){
+		if(exists)walls[x+y*width_][1]=1;
+		else walls[x+y*width_][1]=0;
 	} 
 }
 
