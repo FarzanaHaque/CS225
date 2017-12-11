@@ -207,7 +207,7 @@ TEST_CASE("testMakeMazeRandom", "[weight=10][part2]")
 	else
 		FAIL("Generated the same 50x50 maze twice");
 }
-/*
+
 TEST_CASE("testSolveMazeValidPath", "[weight=10][part2]")
 {
 	SquareMaze maze;
@@ -290,7 +290,7 @@ TEST_CASE("testSolveMazeLarge", "[weight=10][part2]") {
 	helpSolveMaze(READ_SOLUTION_MAZE("testSolveMazeLarge", 700, 700));
 }
 
-
+/*
 TEST_CASE("testDrawMazeSmall", "[weight=10][part2]")
 {
 	PNG solnImage = READ_UNSOLVED_PNG("testDrawMazeSmall", 2, 2);
