@@ -1,20 +1,25 @@
-Exam report for exam5 / fhaque3
+Exam report for exam7 / fhaque3
 
 
-                    Question ID PL Score Recorded Score
--------------------------------------------------------
-           mc-array-resize-fa17        0              0
-         mc-dll-delete-fa17-01a        0              0
- mc-dll-implementation-fa17-01a        1              1
-         mc-fa17-list-insert-1a        1              1
-mc-list-delete-runtime-fa17-02c        1              1
-       mc-list-runtime-fa17-02b        1              1
-      mc-list-vs-array-fa17-01c        0              0
-                  mc-qs-fa17-2a        1              1
-mc-queue-implementation-fa17-2a        1              1
-           mc-templates-fa17-2a        0              0
--------------------------------------------------------
-                          Total        6              6
+                  Question ID PL Score Recorded Score
+-----------------------------------------------------
+         mc-avl-rotation-001b        1              1
+mc-binaryTree-traversals-005b        1              1
+       mc-bst-delete-one-001b        1              1
+       mc-bst-delete-two-002b        1              1
+                 mc-cpp3-001j        1              1
+                 mc-cpp3-003d        0              1
+                 mc-cpp3-003g        1              1
+                 mc-cpp4-006d        1              1
+                 mc-cpp4-006g        0              0
+                 mc-cpp4-007c        1              1
+        mc-fa17-mergesort-01b        0              0
+         mc-fa17-pick-adt-01c        1              1
+          mc-tree-properties3        1              1
+             quiz9-Huffman-4a        1              1
+             quiz9-Huffman-6a        1              1
+-----------------------------------------------------
+                        Total       12             13
 
 
 
