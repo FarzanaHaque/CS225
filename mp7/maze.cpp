@@ -1,6 +1,9 @@
 #include <vector>
 #include "dsets.h"
 #include "maze.h"
+#include <iostream>
+#include <unordered_map>
+#include <queue>
 SquareMaze::SquareMaze(){}
 void SquareMaze::makeMaze (int width,int height) {
 	width_=width;
@@ -15,14 +18,14 @@ void SquareMaze::makeMaze (int width,int height) {
 	/*for(int j=0;j<walls.size();j++){
 		delete walls[j];
 	}*/
-	visited=vector<int>();
+	//visited=vector<int>();
 	for(int i=0;i<width*height;i++){///wouldn't it be faster to do a O(1) intialization dude??
 		vector<int> temp {1,1};
 		temp.push_back(1);
 		temp.push_back(1);
 		walls.push_back(temp);
 		visited.push_back(false);
-		dist.push_back(-inf);
+		//dist.push_back(-inf);
 	}
 	while(sets!=1){
 		int square=rand()%(width*height);
@@ -133,13 +136,17 @@ Hint: this function should run in time linear in the number of cells in the maze
 Returns
     a vector of directions taken to solve the maze */
 
-	vector<int> ret= vector<int>();
+	//vector<int> ret= vector<int>();
 	int dest=width_*(height_-1); //the leftest square on bottom row
 	int curr=0;
 	queue <int> q;
 	q.push(curr);
-	vector<int> temp=vector<int>();
-	while(q!=empty){
+	//vector<int> temp=vector<int>();
+
+
+	unordered_map<int,int> parent;
+	parent[0]=0;
+	while(!q.empty()){
 	
 		//manhattan heuristic???
 		/*
@@ -150,14 +157,81 @@ Returns
 		*/
 		curr=q.front();
 		q.pop();
-		if(!visited[curr]){
-			
+		visited[curr]=true;
+		int x=curr%width_;
+		int y=curr/width_;
+		//vector<int> vdir={};
+		if(canTravel(x,y,0)){//right direction
+			if(!visited[curr+1]){
+				q.push(curr+1);
+				visited[curr+1]=true;
+				parent[curr+1]=curr;
+			}
+		}
+		if(canTravel(x,y,1)){//down direction
+			if(!visited[x+(y+1)*width_]){
+				q.push(x+(y+1)*width_);
+				visited[x+(y+1)*width_]=true;
+				parent[x+(y+1)*width_]=curr;
+			}
 		}	
+		if(canTravel(x,y,2)){//left direction
+			if(!visited[curr-1]){
+				q.push(curr-1);
+				visited[curr-1]=true;
+				parent[curr-1]=curr;
+			}
+		}
+		if(canTravel(x,y,3)){//up direction
+			if(!visited[x+(y-1)*width_]){
+				q.push(x+(y-1)*width_);
+				parent[x+(y-1)*width_]=curr;
+				visited[x+(y-1)*width_]=true;
+			}
+		}
+	
 	}
+
+vector<vector<int>> paths;
+paths.resize(width_);
+int endcell=0;
+for(int i=0;i<width_;i++){
+	vector<int> temp=vector<int>();
+	int goback=dest+i;//do dir backwards
+	while(goback!=0){
+		int xend=goback%width_;
+		int yend=goback/width_;
+		int xnew=parent[goback]%width_;
+		int ynew=parent[goback]/width_;
+		if(xnew-xend==1){//right
+			temp.push_back(2);	
+		}
+		if(xnew-xend==-1){//left
+			temp.push_back(0);	
+		}
+		if(ynew-yend==1){//down
+			temp.push_back(3);	
+		}
+		if(ynew-yend==-1){//up
+			temp.push_back(1);	
+		}
+
+
+
+		goback=parent[goback];
+	}
+paths[i]=temp;
+if(temp.size()>paths[endcell].size()) endcell=i;	
+}
+vector<int> ret=paths[endcell];
+ std::reverse(ret.begin(),ret.end()); //decided to only reverse the winner
 	return ret;
 }
 
-
+/*    dir = 0 represents a rightward step (+1 to the x coordinate)
+    dir = 1 represents a downward step (+1 to the y coordinate)
+    dir = 2 represents a leftward step (-1 to the x coordinate)
+    dir = 3 represents an upward step (-1 to the y coordinate)*/
 /*
 void GraphTools::findMST(Graph& graph)
 {
