@@ -14,16 +14,16 @@ using namespace std;
 
 int main()
 {
-    SquareMaze m;
-    m.makeMaze(50, 50);
+   SquareMaze m;
+   m.makeMaze(50, 50);
     std::cout << "MakeMaze complete" << std::endl;
 
-    PNG* unsolved = m.drawMaze();
+  PNG* unsolved = m.drawMaze();
     unsolved->writeToFile("unsolved.png");
     delete unsolved;
     std::cout << "drawMaze complete" << std::endl;
 
-    std::vector<int> sol = m.solveMaze();
+   std::vector<int> sol = m.solveMaze();
     std::cout << "solveMaze complete" << std::endl;
 
     PNG* solved = m.drawMazeWithSolution();
