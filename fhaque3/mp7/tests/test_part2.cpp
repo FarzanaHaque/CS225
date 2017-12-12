@@ -290,7 +290,7 @@ TEST_CASE("testSolveMazeLarge", "[weight=10][part2]") {
 	helpSolveMaze(READ_SOLUTION_MAZE("testSolveMazeLarge", 700, 700));
 }
 
-/*
+
 TEST_CASE("testDrawMazeSmall", "[weight=10][part2]")
 {
 	PNG solnImage = READ_UNSOLVED_PNG("testDrawMazeSmall", 2, 2);
@@ -309,6 +309,7 @@ TEST_CASE("testDrawMazeMed", "[weight=10][part2]")
 	SquareMaze maze;
 	copyMaze(soln, &maze);
 	PNG * actualOutput = maze.drawMaze();
+	//actualOutput->writeToFile("testDrawMazeMed" + string(".png"));
 	REQUIRE(*actualOutput == solnImage);
 }
 
@@ -322,7 +323,7 @@ TEST_CASE("testDrawMazeLarge", "[weight=10][part2]")
 	actualOutput->writeToFile("testDrawMazeLarge" + string(".png"));
 	REQUIRE(*actualOutput == solnImage);
 }
-
+/*
 TEST_CASE("testDrawSolutionMed", "[weight=10][part2]")
 {
 	PNG solnImage = READ_SOLUTION_PNG("testDrawSolutionMed",50, 50);

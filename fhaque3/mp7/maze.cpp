@@ -225,6 +225,7 @@ if(temp.size()>paths[endcell].size()) endcell=i;
 }
 vector<int> ret=paths[endcell];
  std::reverse(ret.begin(),ret.end()); //decided to only reverse the winner
+solution=ret;
 	return ret;
 }
 
@@ -265,6 +266,43 @@ Returns
     a PNG of the unsolved SquareMaze 
 */
 PNG * image=new PNG(width_*10+1,height_*10+1);
+/*for(int i=0;i<width_*10+1;i++){
+	for(int j=0;j<height_*10+1;j++){
+		HSLAPixel *p=image->getPixel(i,j);
+		if(i==0||(j==0&&i>=10)){
+		p->h=0;
+		}
+		if(j==0&&(i>=1&&i<=9)){
+		p->h=360;//is it white or set? idk
+		}
+		if(
+	}
+}*///dont wanna go through every pixel, just intialization
+	cs225::HSLAPixel *p;
+	for(int i=0;i<height_*10+1;i++){//left column
+	p=image->getPixel(0,i);
+	p->l=0;
+	}
+	for(int j=10;j<width_*10+1;j++){//left column
+	p=image->getPixel(j,0);
+	p->l=0;
+	}
+	for(int l=0;l<width_*height_;l++){
+		int x=l%width_;
+		int y=l/width_;
+		if(walls[l][0]==1){//right wall exists
+			for(int k=0;k<=10;k++){
+				p=image->getPixel((x+1)*10,y*10+k);
+				p->l=0;
+			}
+		}
+		if(walls[l][1]==1){//bottom wall exists
+			for(int k=0;k<=10;k++){
+				p=image->getPixel(x*10+k, (y+1)*10);
+				p->l=0;
+			}
+		}
+	}
 //for(
 
 return image;
@@ -280,7 +318,13 @@ return faker;*/
 
  
 PNG * SquareMaze::drawMazeWithSolution (){
-//PNG fake=PNG();
-PNG *faker=NULL;//= & PNG();
-return faker;
+
+/*This function calls drawMaze, then solveMaze; it modifies the PNG from drawMaze to show the solution vector and the exit.
+
+Start at pixel (5,5). Each direction in the solution vector corresponds to a trail of 11 red pixels in the given direction. If the first step is downward, color pixels (5,5) through (5,15) red. (Red is 0,1,0.5,1 in HSLA). Then if the second step is right, color pixels (5,15) through (15,15) red. Then if the third step is up, color pixels (15,15) through (15,5) red. Continue in this manner until you get to the end of the solution vector, so that your output looks analogous the above picture.
+
+Make the exit by undoing the bottom wall of the destination square: call the destination maze coordinates (x,y), and whiten the pixels with coordinates (x*10+k, (y+1)*10) for k from 1 to 9.*/
+
+PNG *ret=drawMaze();
+return ret;
 }
