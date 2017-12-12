@@ -192,7 +192,7 @@ Returns
 	
 	}
 
-vector<vector<int>> paths;
+vector<vector<int>> paths={};
 paths.resize(width_);
 int endcell=0;
 for(int i=0;i<width_;i++){
@@ -226,6 +226,7 @@ if(temp.size()>paths[endcell].size()) endcell=i;
 vector<int> ret=paths[endcell];
  std::reverse(ret.begin(),ret.end()); //decided to only reverse the winner
 solution=ret;
+int end=endcell+dest;
 	return ret;
 }
 
@@ -325,6 +326,73 @@ Start at pixel (5,5). Each direction in the solution vector corresponds to a tra
 
 Make the exit by undoing the bottom wall of the destination square: call the destination maze coordinates (x,y), and whiten the pixels with coordinates (x*10+k, (y+1)*10) for k from 1 to 9.*/
 
-PNG *ret=drawMaze();
-return ret;
+/*    dir = 0 represents a rightward step (+1 to the x coordinate)
+    dir = 1 represents a downward step (+1 to the y coordinate)
+    dir = 2 represents a leftward step (-1 to the x coordinate)
+    dir = 3 represents an upward step (-1 to the y coordinate)*/
+	//solveMaze();
+	PNG *ret=drawMaze();
+
+	cs225::HSLAPixel *p=ret->getPixel(5,5);
+	p->h=0;
+	p->s=1;
+	p->l=0.5;
+	p->a=1;
+	int x=5;
+	int y=5;
+	for(size_t i=0;i<solution.size();i++){
+		int dir=solution[i];
+		if(dir==0){
+			for(int j=0;j<=10;j++){
+				p=ret->getPixel(x+j,y);
+				p->h=0;
+				p->s=1;
+				p->l=0.5;
+				p->a=1;		
+			}
+			x=x+10;
+		}
+		if(dir==1){
+			for(int j=0;j<=10;j++){
+				p=ret->getPixel(x,y+j);
+				p->h=0;
+				p->s=1;
+				p->l=0.5;
+				p->a=1;		
+			}
+			y=y+10;
+		}
+		if(dir==2){
+			for(int j=0;j<=10;j++){
+				p=ret->getPixel(x-j,y);
+				p->h=0;
+				p->s=1;
+				p->l=0.5;
+				p->a=1;		
+			}
+			x=x-10;
+		}
+		if(dir==3){
+			for(int j=0;j<=10;j++){
+				p=ret->getPixel(x,y-j);
+				p->h=0;
+				p->s=1;
+				p->l=0.5;
+				p->a=1;		
+			}
+			y=y-10;
+		}
+	}
+/*Make the exit by undoing the bottom wall of the destination square: call the destination maze coordinates (x,y), and whiten the pixels with coordinates (x*10+k, (y+1)*10) for k from 1 to 9.*/
+walls[end][1]=0;
+int endx=x/10;
+int endy=height_-1;
+for(int k=1;k<=9;k++){
+p=ret->getPixel(endx*10+k, (endy+1)*10);
+				p->h=0;
+				p->s=0;
+				p->l=1.0;
+				p->a=1.0;	
+}
+	return ret;
 }

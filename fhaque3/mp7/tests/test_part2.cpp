@@ -323,7 +323,7 @@ TEST_CASE("testDrawMazeLarge", "[weight=10][part2]")
 	actualOutput->writeToFile("testDrawMazeLarge" + string(".png"));
 	REQUIRE(*actualOutput == solnImage);
 }
-/*
+
 TEST_CASE("testDrawSolutionMed", "[weight=10][part2]")
 {
 	PNG solnImage = READ_SOLUTION_PNG("testDrawSolutionMed",50, 50);
@@ -347,5 +347,5 @@ TEST_CASE("testDrawSolutionLarge", "[weight=10][part2]")
 	actualOutput->writeToFile("testDrawSolutionLarge"+ string(".png"));
 	REQUIRE(*actualOutput == solnImage);
 }
-*/
+
 
