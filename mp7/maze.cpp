@@ -24,7 +24,7 @@ void SquareMaze::makeMaze (int width,int height) {
 		temp.push_back(1);
 		temp.push_back(1);
 		walls.push_back(temp);
-		visited.push_back(false);
+		//visited.push_back(false);
 		//dist.push_back(-inf);
 	}
 	while(sets!=1){
@@ -142,7 +142,8 @@ Returns
 	queue <int> q;
 	q.push(curr);
 	//vector<int> temp=vector<int>();
-
+	vector <bool> visited;
+	visited.resize(width_*height_);
 
 	unordered_map<int,int> parent;
 	parent[0]=0;
@@ -225,7 +226,7 @@ if(temp.size()>paths[endcell].size()) endcell=i;
 }
 vector<int> ret=paths[endcell];
  std::reverse(ret.begin(),ret.end()); //decided to only reverse the winner
-solution=ret;
+//solution=ret;
 int end=endcell+dest;
 	return ret;
 }
@@ -305,7 +306,7 @@ PNG * image=new PNG(width_*10+1,height_*10+1);
 		}
 	}
 //for(
-
+//solution=vector<int>();  
 return image;
 
 
@@ -332,7 +333,7 @@ Make the exit by undoing the bottom wall of the destination square: call the des
     dir = 3 represents an upward step (-1 to the y coordinate)*/
 	//solveMaze();
 	PNG *ret=drawMaze();
-
+	vector<int>solution=solveMaze();
 	cs225::HSLAPixel *p=ret->getPixel(5,5);
 	p->h=0;
 	p->s=1;
@@ -384,7 +385,7 @@ Make the exit by undoing the bottom wall of the destination square: call the des
 		}
 	}
 /*Make the exit by undoing the bottom wall of the destination square: call the destination maze coordinates (x,y), and whiten the pixels with coordinates (x*10+k, (y+1)*10) for k from 1 to 9.*/
-walls[end][1]=0;
+//walls[end][1]=0;
 int endx=x/10;
 int endy=height_-1;
 for(int k=1;k<=9;k++){
