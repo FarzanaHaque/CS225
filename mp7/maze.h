@@ -26,6 +26,7 @@ class SquareMaze {
 	//unordered_map<int,int> ns; //newsquare
 	//std::unordered_map<vertex,vector<int>> neighbors;
 	//vector <int> dist;
+	int end;
 	private:
 	DisjointSets forest;
 	//PNG * mypng;
