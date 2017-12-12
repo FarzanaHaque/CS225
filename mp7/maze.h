@@ -22,6 +22,7 @@ class SquareMaze {
 	int width_;
 	int height_;
 	vector <bool> visited;
+	vector<int> solution;
 	//unordered_map<int,int> ns; //newsquare
 	//std::unordered_map<vertex,vector<int>> neighbors;
 	//vector <int> dist;
